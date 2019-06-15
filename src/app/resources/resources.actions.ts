@@ -1,9 +1,11 @@
 import { Action } from '@ngrx/store';
+import { ResourcesState } from './resources.reducer';
 
 export enum ResourcesActionTypes {
   MoneyAction = '[Resources] Change Money',
   EnergyAction = '[Resources] Change Energy',
   SellAction = '[Resources] Sell Action',
+  SetAction = '[Resources] Set Action',
 }
 
 export class ChangeMoney implements Action {
@@ -22,4 +24,10 @@ export class SellEnergy implements Action {
   readonly type = ResourcesActionTypes.SellAction;
 }
 
-export type ResourcesActions = ChangeMoney | ChangeEnergy | SellEnergy;
+export class SetResources implements Action {
+  readonly type = ResourcesActionTypes.SetAction;
+
+  constructor(public payload: ResourcesState) {}
+}
+
+export type ResourcesActions = ChangeMoney | ChangeEnergy | SellEnergy | SetResources;

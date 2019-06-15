@@ -9,6 +9,7 @@ export interface ResourcesState {
   priceTime: number;
   multi: number;
   buildings: number;
+  production: number;
 }
 
 export const initialState: ResourcesState = {
@@ -20,14 +21,16 @@ export const initialState: ResourcesState = {
   priceTime: 0,
   multi: 1,
   buildings: 0,
+  production: 0,
 };
 
 export function reducer(state = initialState, action: ResourcesActions): ResourcesState {
   switch (action.type) {
-    case ResourcesActionTypes.MoneyAction:
+    case ResourcesActionTypes.PriceAction:
       return {
         ...state,
-        money: state.money + action.payload,
+        price: action.payload,
+        priceTime: 0,
       };
     case ResourcesActionTypes.EnergyAction:
       return {
@@ -42,6 +45,7 @@ export function reducer(state = initialState, action: ResourcesActions): Resourc
       };
     case ResourcesActionTypes.SetAction:
       return {
+        ...state,
         money: action.payload.money,
         green: action.payload.green,
         workers: action.payload.workers,

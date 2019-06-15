@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { ChangeMoney, SellEnergy } from './resources.actions';
-import { takeMoney, takeEnergy } from './resources.selectors';
+import { ChangePrice, SellEnergy } from './resources.actions';
+import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
 
 @Component({
   selector: 'app-resources',
@@ -12,16 +12,27 @@ import { takeMoney, takeEnergy } from './resources.selectors';
 })
 export class ResourcesComponent implements OnInit {
   money$: Observable<number>;
+  green$: Observable<number>;
+  workers$: Observable<number>;
+  price$: Observable<number>;
   energy$: Observable<number>;
+  multi$: Observable<number>;
+  buildings$: Observable<number>;
+  production$: Observable<number>;
+  selected: string;
+  rwd = false;
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.money$ = this.store.pipe(select(takeMoney));
+    this.green$ = this.store.pipe(select(takeGreen));
+    this.workers$ = this.store.pipe(select(takeWorkes));
+    this.price$ = this.store.pipe(select(takePrice));
     this.energy$ = this.store.pipe(select(takeEnergy));
-  }
-
-  add() {
-    this.store.dispatch(new ChangeMoney(10));
+    this.multi$ = this.store.pipe(select(takeMulti));
+    this.buildings$ = this.store.pipe(select(takeBuildings));
+    this.production$ = this.store.pipe(select(takeProduction));
+    this.multi$.subscribe(data => this.selected = data.toString());
   }
 
   sell() {

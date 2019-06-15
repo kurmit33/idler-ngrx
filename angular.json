@@ -115,6 +115,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "idler"
+    }
+  },
+  "defaultProject": "idler",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

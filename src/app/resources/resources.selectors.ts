@@ -6,3 +6,8 @@ export const takeMoney = createSelector(
   selectResourcesState,
   resources => resources.money,
 );
+
+export const takeEnergy = createSelector(
+  selectResourcesState,
+  resources => resources.energy,
+);

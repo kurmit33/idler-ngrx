@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 export enum ResourcesActionTypes {
   MoneyAction = '[Resources] Change Money',
   EnergyAction = '[Resources] Change Energy',
+  SellAction = '[Resources] Sell Action',
 }
 
 export class ChangeMoney implements Action {
@@ -17,5 +18,8 @@ export class ChangeEnergy implements Action {
   constructor(public payload: number) {}
 }
 
+export class SellEnergy implements Action {
+  readonly type = ResourcesActionTypes.SellAction;
+}
 
-export type ResourcesActions = ChangeMoney | ChangeEnergy;
+export type ResourcesActions = ChangeMoney | ChangeEnergy | SellEnergy;

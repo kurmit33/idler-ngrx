@@ -32,6 +32,11 @@ export function reducer(state = initialState, action: ResourcesActions): Resourc
         price: action.payload,
         priceTime: 0,
       };
+    case ResourcesActionTypes.PriceTimeAction:
+      return {
+        ...state,
+        priceTime: action.payload,
+      };
     case ResourcesActionTypes.EnergyAction:
       return {
         ...state,

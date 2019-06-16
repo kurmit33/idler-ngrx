@@ -1,7 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
 export const selectResourcesState = state => state.resources;
-export const selectState = state => state;
 
 export const takeMoney = createSelector(
   selectResourcesState,
@@ -41,9 +40,4 @@ export const takeMulti = createSelector(
 export const takeProduction = createSelector(
   selectResourcesState,
   resouces => resouces.production,
-);
-
-export const takeResources = createSelector(
-  selectState,
-  state => state,
 );

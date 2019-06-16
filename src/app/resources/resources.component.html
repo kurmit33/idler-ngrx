@@ -15,7 +15,7 @@
           Options
         </button>
         <mat-menu #rootMenu="matMenu">
-          <button mat-menu-item [matMenuTriggerFor]="subMenu"></button>
+          <button mat-menu-item [matMenuTriggerFor]="subMenu">{{selected}}</button>
           <button mat-menu-item disabled>
             <span>Buildings:</span>
             <mat-icon>location_city</mat-icon>
@@ -25,7 +25,7 @@
             <mat-icon>power</mat-icon>
           </button>
           <button mat-menu-item disabled>
-            <button mat-raised-button color="accent" title="For 2000 Power Plant you give 1 worker!">
+            <button mat-raised-button color="accent" title="For 2000 Power Plant you give 1 worker!" (click)="reset()">
               Reset
             </button>
           </button>
@@ -33,14 +33,14 @@
               <button mat-raised-button disabled>Sell Green</button>
           </button>
           <button mat-menu-item disabled>
-            <button mat-raised-button title="deleta all!" color="warn">
+            <button mat-raised-button title="deleta all!" color="warn" (click)="hardReset()">
               Click!
             </button>
           </button>
         </mat-menu>
         <mat-menu #subMenu="matMenu">
           <mat-button-toggle-group #group="matButtonToggleGroup" vertical class="btnff"
-            [(value)]="selected">
+            [(value)]="selected" (click)="selectMulti()">
             <mat-button-toggle value="1" class="btnff">Buy 1</mat-button-toggle>
             <mat-button-toggle value="10" class="btnff">Buy 10</mat-button-toggle>
             <mat-button-toggle value="100" class="btnff">Buy 100</mat-button-toggle>
@@ -53,7 +53,6 @@
           </mat-button-toggle-group>
         </mat-menu>
       </mat-toolbar-row>
-
       <mat-toolbar-row>
         <span></span>
         <mat-icon>power</mat-icon>
@@ -61,7 +60,7 @@
         <span>Price</span>
         <mat-icon>attach_money</mat-icon>
         <div class="flex-spacer"></div>
-        <button mat-raised-button>Sell</button>
+        <button mat-raised-button (click)="sell()">Sell</button>
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-toolbar color="primary" *ngIf="!rwd" class="rrs">
@@ -76,7 +75,7 @@
         <mat-icon>people</mat-icon>
         <div class="flex-spacer"></div>
         <mat-form-field>
-          <mat-select [(value)]="selected">
+          <mat-select [(value)]="selected" (closed)="selectMulti()">
             <mat-option value="1">Buy 1</mat-option>
             <mat-option value="10">Buy 10</mat-option>
             <mat-option value="100">Buy 100</mat-option>
@@ -89,11 +88,11 @@
           </mat-select>
         </mat-form-field>
         <div class="flex-spacer"></div>
-        <button mat-raised-button title="For 2000 buildings you give 1 worker!" color="accent">
+        <button mat-raised-button title="For 2000 buildings you give 1 worker!" color="accent" (click)="reset()">
           Reset
         </button>
         <div class="flex-spacer"></div>
-        <button mat-raised-button title="deleta all!" color="warn">
+        <button mat-raised-button title="deleta all!" color="warn" (click)="hardReset()">
           Click!
         </button>
       </mat-toolbar-row>
@@ -110,7 +109,7 @@
         <span>Price {{price$ | async}}</span>
         <mat-icon>attach_money</mat-icon>
         <div class="flex-spacer"></div>
-        <button mat-raised-button >Sell</button>
+        <button mat-raised-button (click)="sell()">Sell</button>
         <div class="flex-spacer"></div>
         <button mat-raised-button disabled>Sell Green</button>
       </mat-toolbar-row>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { ChangePrice, SellEnergy } from './resources.actions';
+import { SellEnergy, MultiSelected, Reset, HardReset } from './resources.actions';
 import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
 
 @Component({
@@ -37,5 +37,17 @@ export class ResourcesComponent implements OnInit {
 
   sell() {
     this.store.dispatch(new SellEnergy());
+  }
+
+  selectMulti() {
+    this.store.dispatch(new MultiSelected(Number(this.selected)));
+  }
+
+  reset() {
+    this.store.dispatch(new Reset(10));
+  }
+
+  hardReset() {
+    this.store.dispatch(new HardReset());
   }
 }

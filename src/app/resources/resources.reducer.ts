@@ -1,6 +1,6 @@
 import { ResourcesActions, ResourcesActionTypes } from './resources.actions';
 
-export interface ResourcesState {
+export interface State {
   money: number;
   green: number;
   workers: number;
@@ -10,9 +10,10 @@ export interface ResourcesState {
   multi: number;
   buildings: number;
   production: number;
+  lastTime: Date;
 }
 
-export const initialState: ResourcesState = {
+export const initialState: State = {
   money: 0,
   green: 0,
   workers: 0,
@@ -22,9 +23,10 @@ export const initialState: ResourcesState = {
   multi: 1,
   buildings: 0,
   production: 0,
+  lastTime: new Date(),
 };
 
-export function reducer(state = initialState, action: ResourcesActions): ResourcesState {
+export function reducer(state = initialState, action: ResourcesActions): State {
   switch (action.type) {
     case ResourcesActionTypes.PriceAction:
       return {
@@ -41,6 +43,28 @@ export function reducer(state = initialState, action: ResourcesActions): Resourc
       return {
         ...state,
         energy: state.energy + action.payload,
+      };
+    case ResourcesActionTypes.ResetAction:
+      return {
+        ...state,
+        workers: state.workers + action.payload,
+        money: 0,
+        green: 0,
+        energy: 0,
+        buildings: 0,
+        production: 0,
+      };
+    case ResourcesActionTypes.MultiAction:
+      return {
+        ...state,
+        multi: action.payload,
+      };
+      case ResourcesActionTypes.HardResetAction:
+        return initialState;
+    case ResourcesActionTypes.LastTimeAction:
+      return {
+        ...state,
+        lastTime: action.payload,
       };
     case ResourcesActionTypes.SellAction:
       return {
@@ -59,6 +83,7 @@ export function reducer(state = initialState, action: ResourcesActions): Resourc
         priceTime: action.payload.priceTime,
         multi: action.payload.multi,
         buildings: action.payload.buildings,
+        lastTime: action.payload.lastTime,
       };
     default:
       return state;

@@ -1,11 +1,13 @@
 import { Action } from '@ngrx/store';
+import { AppState } from './reducers';
 
 export enum AppActionTypes {
-  UnloadAction = '[App] Unload Apps',
+  SaveAction = '[App] Save Action',
+  LoadAction = '[App] Load Action',
 }
 
-export class Unload implements Action {
-  readonly type = AppActionTypes.UnloadAction;
+export class Save implements Action {
+  readonly type = AppActionTypes.SaveAction;
 }
 
-export type AppActions = Unload;
+export type AppActions = Save;

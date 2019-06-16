@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ResourcesState } from './resources.reducer';
+import { State } from './resources.reducer';
 
 export enum ResourcesActionTypes {
   PriceAction = '[Resources] Change Price Action',
@@ -8,24 +8,40 @@ export enum ResourcesActionTypes {
   SetAction = '[Resources] Set Action',
   PriceTimeAction = '[Resources] Price Time Action',
   StartType = '[Resources] Start Time Action',
+  MultiAction = '[Resources] Select Multi Action',
+  LastTimeAction = '[Resources] Last Time Action',
+  ResetAction = '[Resources] Reset Action',
+  HardResetAction = '[Resources] Hard Reset Action',
 }
 
 export class ChangePrice implements Action {
   readonly type = ResourcesActionTypes.PriceAction;
 
-  constructor(public payload: number) {}
+  constructor(public payload: number) { }
 }
 
 export class ChangeEnergy implements Action {
   readonly type = ResourcesActionTypes.EnergyAction;
 
-  constructor(public payload: number) {}
+  constructor(public payload: number) { }
 }
 
 export class PriceTime implements Action {
   readonly type = ResourcesActionTypes.PriceTimeAction;
 
-  constructor(public payload: number) {}
+  constructor(public payload: number) { }
+}
+
+export class LastTime implements Action {
+  readonly type = ResourcesActionTypes.LastTimeAction;
+
+  constructor(public payload: Date) { }
+}
+
+export class MultiSelected implements Action {
+  readonly type = ResourcesActionTypes.MultiAction;
+
+  constructor(public payload: number) { }
 }
 
 export class SellEnergy implements Action {
@@ -38,7 +54,18 @@ export class StartAction implements Action {
 export class SetResources implements Action {
   readonly type = ResourcesActionTypes.SetAction;
 
-  constructor(public payload: ResourcesState) {}
+  constructor(public payload: State) { }
 }
 
-export type ResourcesActions = ChangePrice | ChangeEnergy | SellEnergy | SetResources | PriceTime;
+export class Reset implements Action {
+  readonly type = ResourcesActionTypes.ResetAction;
+
+  constructor(public payload: number) { }
+}
+
+export class HardReset implements Action {
+  readonly type = ResourcesActionTypes.HardResetAction;
+}
+
+export type ResourcesActions = ChangePrice | ChangeEnergy | SellEnergy
+  | SetResources | PriceTime | MultiSelected | LastTime | Reset | HardReset;

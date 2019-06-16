@@ -1,9 +1,9 @@
 import { Component, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './reducers';
-import { SetResources, StartAction } from './resources/resources.actions';
+import { SetResources, StartAction, LastTime } from './resources/resources.actions';
 import { delay } from 'rxjs/operators';
-import { takeResources } from './resources/resources.selectors';
+import { takeState } from './app.selectors';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,8 @@ export class AppComponent {
     if (localStorage.getItem('game')) {
       localStorage.clear();
     }
-    this.store.select(takeResources).subscribe(data => this.res = data);
+    this.store.dispatch(new LastTime(new Date()));
+    this.store.select(takeState).subscribe(data => this.res = data);
     localStorage.setItem('game', JSON.stringify(this.res));
     delay(1000);
 

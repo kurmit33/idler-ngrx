@@ -1,0 +1,25 @@
+.flex-spacer{
+  flex-grow: 1;
+}
+
+.top-toolbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+button{
+  min-width: 100px;
+}
+
+.rrs span{
+  width: 156px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnff{
+  min-width: 98%;
+}

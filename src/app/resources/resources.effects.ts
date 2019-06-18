@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { interval, Observable } from 'rxjs';
 import { mapTo, tap } from 'rxjs/operators';
 import { ChangeEnergy, ResourcesActionTypes, ChangePrice, LastTime } from './resources.actions';
 import { AppState } from '../reducers';
+import { takeProduction } from './resources.selectors';
 
 @Injectable()
 export class ResourcesEffects {
-  res: any;
-  res$: Observable<any>;
   priceTime = 0;
 
   @Effect()
   init$ = interval(1000).pipe(mapTo(new ChangeEnergy(this.productionPerTick())));
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   changePrice$ = this.actions$.pipe(
     ofType(ResourcesActionTypes.StartType),
     tap(() => {
       interval(60000).subscribe(() => {
-          this.store.dispatch(new ChangePrice(this.randomPrice()));
+        this.store.dispatch(new ChangePrice(this.randomPrice()));
       });
     })
   );
 
-  constructor(private actions$: Actions, private store: Store<AppState>) {}
+  constructor(private actions$: Actions, private store: Store<AppState>) { }
 
-  productionPerTick() {
-
-    return 1;
+  productionPerTick(): number {
+    let production: number;
+    this.store.pipe(select(takeProduction)).subscribe(data => production = data);
+    return production;
   }
 
   randomPrice(): number {

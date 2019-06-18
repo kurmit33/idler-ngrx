@@ -22,7 +22,7 @@ export const initialState: State = {
   priceTime: 0,
   multi: 1,
   buildings: 0,
-  production: 0,
+  production: 1,
   lastTime: new Date(),
 };
 

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { PowerPlant } from './powerplant.model';
+import { PowerplantActionTypes } from './powerplant.actions';
 
 
 export interface State {
@@ -30,7 +31,8 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
-
+    case PowerplantActionTypes.BuildPowerPlants:
+      return state;
     default:
       return state;
   }

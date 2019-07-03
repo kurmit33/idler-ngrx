@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { interval } from 'rxjs';
-import { tap, debounceTime } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { ChangeEnergy, RESOURCES_ACTION_TYPES, ChangePrice, LastTime, ChangeProduction, ChangeBuildings } from './resources.actions';
 import { AppState } from '../reducers';
 import { takeProduction } from './resources.selectors';
-import { POWERPLANT_ACTION_TYPES, Production } from '../powerplant/powerplant.actions';
+import { POWERPLANT_ACTION_TYPES } from '../powerplant/powerplant.actions';
 import { takePowerPlants } from '../powerplant/powerplant.selector';
 import { PowerPlant } from '../powerplant/powerplant.model';
 

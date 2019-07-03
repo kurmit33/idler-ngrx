@@ -1,0 +1,11 @@
+.powerplant {
+  min-height: 500px;
+}
+
+.flex-spacer{
+  flex-grow: 1;
+}
+
+button {
+  min-width: 100px;
+}

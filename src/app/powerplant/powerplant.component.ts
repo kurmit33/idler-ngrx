@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { PowerPlant } from './powerplant.model';
+import { AppState } from '../reducers';
+import { Store, select } from '@ngrx/store';
+import { takePowerPlants } from './powerplant.selector';
 
 @Component({
   selector: 'app-powerplant',
@@ -6,10 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./powerplant.component.css']
 })
 export class PowerplantComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private store: Store<AppState>) {
   }
 
+  ngOnInit() {}
+
+  arrayOne(num: number) {
+    return Array(num);
+  }
 }

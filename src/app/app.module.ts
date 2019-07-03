@@ -19,10 +19,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+
 import { PowerplantComponent } from './powerplant/powerplant.component';
 import { EventComponent } from './event/event.component';
 import { OfficeComponent } from './office/office.component';
@@ -34,6 +39,7 @@ import { EventEffects } from './event/event.effects';
 import { OfficeEffects } from './office/office.effects';
 import { PowerplantEffects } from './powerplant/powerplant.effects';
 import { ProductionEffects } from './production/production.effects';
+import { ShortNumberPipe } from './pipes/short-number.pipe';
 
 
 @NgModule({
@@ -46,7 +52,8 @@ import { ProductionEffects } from './production/production.effects';
     ProductionComponent,
     PowerplantCardComponent,
     ProductionCardComponent,
-    OfficeCardComponent
+    OfficeCardComponent,
+    ShortNumberPipe
   ],
   imports: [
     BrowserModule,
@@ -63,6 +70,10 @@ import { ProductionEffects } from './production/production.effects';
     MatButtonToggleModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatCardModule,
+    MatGridListModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     FormsModule,
     LayoutModule,
   ],

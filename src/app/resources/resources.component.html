@@ -2,10 +2,10 @@
   <mat-sidenav-container class="top-toolbar">
     <mat-toolbar color="primary" *ngIf="rwd" class="rrw">
       <mat-toolbar-row>
-        <span>{{money$ | async}}</span>
+        <span>{{money$ | async | shortNumber: 2}}</span>
         <mat-icon title="Money">attach_money</mat-icon>
         <div class="flex-spacer"></div>
-        <span></span>
+        <span>Green {{green$ | async | shortNumber: 2 : true}}</span>
         <mat-icon title="Green">assignment</mat-icon>
         <div class="flex-spacer"></div>
         <span title="One worker give you 0.2% more production"></span>
@@ -17,11 +17,11 @@
         <mat-menu #rootMenu="matMenu">
           <button mat-menu-item [matMenuTriggerFor]="subMenu">{{selected}}</button>
           <button mat-menu-item disabled>
-            <span>Buildings:</span>
+            <span>Buildings: {{buildings$ | async | shortNumber: 2 : true}}</span>
             <mat-icon>location_city</mat-icon>
           </button>
           <button mat-menu-item disabled>
-            <span>Production: </span>
+            <span>Production: {{production$ | async | shortNumber: 2}} </span>
             <mat-icon>power</mat-icon>
           </button>
           <button mat-menu-item disabled>
@@ -54,10 +54,10 @@
         </mat-menu>
       </mat-toolbar-row>
       <mat-toolbar-row>
-        <span></span>
+        <span>Energy {{energy$ | async | shortNumber: 2}}</span>
         <mat-icon>power</mat-icon>
         <div class="flex-spacer"></div>
-        <span>Price</span>
+        <span>Price {{price$ | async}}</span>
         <mat-icon>attach_money</mat-icon>
         <div class="flex-spacer"></div>
         <button mat-raised-button (click)="sell()">Sell</button>
@@ -65,13 +65,13 @@
     </mat-toolbar>
     <mat-toolbar color="primary" *ngIf="!rwd" class="rrs">
       <mat-toolbar-row>
-        <span>Money {{money$ | async}}</span>
+        <span>Money {{money$ | async | shortNumber: 2}}</span>
         <mat-icon>attach_money</mat-icon>
         <div class="flex-spacer"></div>
-        <span>Green {{green$ | async}}</span>
+        <span>Green {{green$ | async | shortNumber: 2 : true}}</span>
         <mat-icon>assignment</mat-icon>
         <div class="flex-spacer"></div>
-        <span title="One worker give you 0.2% more production">Workers {{workers$ | async}}</span>
+        <span title="One worker give you 0.2% more production">Workers {{workers$ | async | shortNumber: 2 : true}}</span>
         <mat-icon>people</mat-icon>
         <div class="flex-spacer"></div>
         <mat-form-field>
@@ -97,13 +97,13 @@
         </button>
       </mat-toolbar-row>
       <mat-toolbar-row>
-        <span>Production: {{production$ | async}}</span>
+        <span>Production: {{production$ | async | shortNumber: 2}}</span>
         <mat-icon>power</mat-icon>
         <div class="flex-spacer"></div>
-        <span>Buildings: {{buildings$ | async}}</span>
+        <span>Buildings: {{buildings$ | async | shortNumber: 2 : true}}</span>
         <mat-icon>location_city</mat-icon>
         <div class="flex-spacer"></div>
-        <span>Energy {{energy$ | async}}</span>
+        <span>Energy {{energy$ | async | shortNumber: 2}}</span>
         <mat-icon>power</mat-icon>
         <div class="flex-spacer"></div>
         <span>Price {{price$ | async}}</span>

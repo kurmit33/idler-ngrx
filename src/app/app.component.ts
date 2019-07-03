@@ -4,6 +4,8 @@ import { AppState } from './reducers';
 import { SetResources, StartAction, LastTime } from './resources/resources.actions';
 import { delay } from 'rxjs/operators';
 import { takeState } from './app.selectors';
+import { LoadPowerPlants } from './powerplant/powerplant.actions';
+import { LoadProductions } from './production/production.actions';
 
 @Component({
   selector: 'app-root',
@@ -34,8 +36,10 @@ export class AppComponent {
   ngOnInit() {
     const data = localStorage.getItem('game');
     if (data) {
-      const res = JSON.parse(data);
-      this.store.dispatch(new SetResources(res.resources));
+      const load = JSON.parse(data);
+      this.store.dispatch(new SetResources(load.resources));
+      this.store.dispatch(new LoadPowerPlants(load.powerplant));
+      this.store.dispatch(new LoadProductions(load.production));
     }
     this.store.dispatch(new StartAction());
   }

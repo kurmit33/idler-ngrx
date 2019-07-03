@@ -1,3 +1,72 @@
-<p>
-  production-card works!
-</p>
+<mat-card class="powerplant">
+  <mat-card-header>
+    <img mat-card-avatar src="{{productionBuilding.image}}">
+    <mat-card-title>{{productionBuilding.name | uppercase}}</mat-card-title>
+    <mat-card-subtitle>{{productionBuilding.title}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <div *ngIf="productionBuilding.status.research">
+    <mat-card-content class="tett">
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="12" [rowspan]="4">
+          <mat-progress-spinner mode="determinate" [value]="productionBuilding.time * valueMulti" color="accent"></mat-progress-spinner>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          Production:
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          {{productionBuilding.production.energy}} <mat-icon>power</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          {{productionBuilding.production.time}} <mat-icon>timer</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="2">
+          Level<br>
+          {{productionBuilding.level}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="2">
+          {{productionBuilding.secondResource}}
+          <br>
+          {{productionBuilding.timeResources}} / {{productionBuilding.space}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">Upgrade price</mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">Child price</mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          {{productionBuilding.price.upgrade}}<mat-icon>attach_money</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          {{productionBuilding.price.timeResource}}<mat-icon>attach_money</mat-icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="12" [rowspan]="2">
+          <button mat-fab color="primary" disabled="{{productionBuilding.status.work}}" (click)="work()">Work!</button>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          <button mat-raised-button color="primary" (click)="upgrade()" disabled="{{productionBuilding.status.upgradeButton}}">Upgrade</button>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          <button mat-raised-button color="primary" (click)="buy()" disabled="{{productionBuilding.status.timeResourceButton}}">{{productionBuilding.secondButton}}</button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-actions>
+  </div>
+  <div *ngIf="!productionBuilding.status.research">
+    <mat-card-content>
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          {{productionBuilding.price.research}}
+          <mat-icon>attach_money</mat-icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions class="tett">
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          <button mat-raised-button color="accent" (click)="research()" disabled="{{productionBuilding.status.researchButton}}">Research</button></mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-actions>
+  </div>
+</mat-card>

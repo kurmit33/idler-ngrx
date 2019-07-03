@@ -1,3 +1,82 @@
-<p>
-  powerplant-card works!
-</p>
+<mat-card class="powerplant">
+  <mat-card-header>
+    <img mat-card-avatar src="{{powerPlant.avatar}}">
+    <mat-card-title>{{powerPlant.name | uppercase}}</mat-card-title>
+    <mat-card-subtitle>Production per s {{powerPlant.production | shortNumber: 2}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="{{powerPlant.image}}">
+  <div *ngIf="powerPlant.status.research">
+    <mat-card-content class="tett">
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="3" [rowspan]="2">
+          Buildings<br>{{powerPlant.buildings | shortNumber: 2 : true}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="2">
+          Level<br>{{powerPlant.level | shortNumber: 2 : true}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="2">
+          Engineers<br>{{powerPlant.engineers | shortNumber: 2 : true}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="2">
+          Space<br>{{powerPlant.space - powerPlant.buildings | shortNumber: 2 : true}}
+        </mat-grid-tile>
+        <div *ngIf="powerPlant.startPrice.green">
+          <mat-grid-tile [colspan]="12" [rowspan]="1">Build price</mat-grid-tile>
+          <mat-grid-tile [colspan]="6" [rowspan]="1">
+            {{powerPlant.price.build.money | shortNumber: 2 : true}}
+            <mat-icon>attach_money</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="6" [rowspan]="1">
+            {{powerPlant.price.build.green | shortNumber: 2 : true}}
+            <mat-icon>assignment</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="12" [rowspan]="1">Upgrade price</mat-grid-tile>
+          <mat-grid-tile [colspan]="6" [rowspan]="1">
+            {{powerPlant.price.upgrade.money | shortNumber: 2 : true}}
+            <mat-icon>attach_money</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="6" [rowspan]="1">
+            {{powerPlant.price.upgrade.green | shortNumber: 2 : true}}
+            <mat-icon>assignment</mat-icon>
+          </mat-grid-tile>
+        </div>
+        <div *ngIf="!powerPlant.startPrice.green">
+          <mat-grid-tile [colspan]="12" [rowspan]="1">Build price</mat-grid-tile>
+          <mat-grid-tile [colspan]="12" [rowspan]="1">
+            {{powerPlant.price.build.money | shortNumber: 2 : true}}
+            <mat-icon>attach_money</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="12" [rowspan]="1">Upgrade price</mat-grid-tile>
+          <mat-grid-tile [colspan]="12" [rowspan]="1">
+            {{powerPlant.price.upgrade.money | shortNumber: 2 : true}}
+            <mat-icon>attach_money</mat-icon>
+          </mat-grid-tile>
+        </div>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="4" [rowspan]="1"><button mat-raised-button color="primary" (click)="build()" disabled="{{powerPlant.status.buildButton}}">Build</button></mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="1"><button mat-raised-button color="primary" (click)="upgrade()" disabled="{{powerPlant.status.upgradeButton}}">Upgrade</button></mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="1"><button mat-raised-button color="primary" (click)="hire()" disabled="{{powerPlant.status.hireButton}}">Hire</button></mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-actions>
+  </div>
+  <div *ngIf="!powerPlant.status.research">
+    <mat-card-content>
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px" *ngIf="powerPlant.startPrice.green">
+        <mat-grid-tile [colspan]="6" [rowspan]="1">{{powerPlant.price.research.money | shortNumber: 2 : true}}<mat-icon>attach_money</mat-icon></mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">{{powerPlant.price.research.green | shortNumber: 2 : true}}<mat-icon>assignment</mat-icon></mat-grid-tile>
+      </mat-grid-list>
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px" *ngIf="!powerPlant.startPrice.green">
+        <mat-grid-tile [colspan]="12" [rowspan]="1">{{powerPlant.price.research.money | shortNumber: 2 : true}}<mat-icon>attach_money</mat-icon></mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions class="tett">
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          <button mat-raised-button color="accent" disabled="{{powerPlant.status.researchButton}}" (click)="research()">Research</button></mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-actions>
+  </div>
+</mat-card>

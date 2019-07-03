@@ -1,4 +1,4 @@
-import { ResourcesActions, ResourcesActionTypes } from './resources.actions';
+import { ResourcesActions, RESOURCES_ACTION_TYPES } from './resources.actions';
 
 export interface State {
   money: number;
@@ -28,23 +28,33 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: ResourcesActions): State {
   switch (action.type) {
-    case ResourcesActionTypes.PriceAction:
+    case RESOURCES_ACTION_TYPES.PriceAction:
       return {
         ...state,
         price: action.payload,
         priceTime: 0,
       };
-    case ResourcesActionTypes.PriceTimeAction:
+    case RESOURCES_ACTION_TYPES.Buildings:
+      return {
+        ...state,
+        buildings: action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.ProductionAction:
+      return {
+        ...state,
+        production: action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.PriceTimeAction:
       return {
         ...state,
         priceTime: action.payload,
       };
-    case ResourcesActionTypes.EnergyAction:
+    case RESOURCES_ACTION_TYPES.EnergyAction:
       return {
         ...state,
         energy: state.energy + action.payload,
       };
-    case ResourcesActionTypes.ResetAction:
+    case RESOURCES_ACTION_TYPES.ResetAction:
       return {
         ...state,
         workers: state.workers + action.payload,
@@ -54,37 +64,31 @@ export function reducer(state = initialState, action: ResourcesActions): State {
         buildings: 0,
         production: 0,
       };
-    case ResourcesActionTypes.MultiAction:
+    case RESOURCES_ACTION_TYPES.MultiAction:
       return {
         ...state,
         multi: action.payload,
       };
-      case ResourcesActionTypes.HardResetAction:
-        return initialState;
-    case ResourcesActionTypes.LastTimeAction:
+    case RESOURCES_ACTION_TYPES.HardResetAction:
+      return initialState;
+    case RESOURCES_ACTION_TYPES.LastTimeAction:
       return {
         ...state,
         lastTime: action.payload,
       };
-    case ResourcesActionTypes.SellAction:
+    case RESOURCES_ACTION_TYPES.SellAction:
       return {
         ...state,
         money: state.money + state.energy * state.price,
         energy: 0,
       };
-    case ResourcesActionTypes.SetAction:
+    case RESOURCES_ACTION_TYPES.MoneyAction:
       return {
         ...state,
-        money: action.payload.money,
-        green: action.payload.green,
-        workers: action.payload.workers,
-        price: action.payload.price,
-        energy: action.payload.energy,
-        priceTime: action.payload.priceTime,
-        multi: action.payload.multi,
-        buildings: action.payload.buildings,
-        lastTime: action.payload.lastTime,
+        money: state.money + action.payload,
       };
+    case RESOURCES_ACTION_TYPES.SetAction:
+      return action.payload;
     default:
       return state;
   }

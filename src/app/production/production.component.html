@@ -1,3 +1,8 @@
-<p>
-  production works!
-</p>
+<mat-sidenav-container>
+  <mat-grid-list cols="20" rowHeight="750px" gutterSize="2px">
+    <mat-grid-tile [colspan]="4" [rowspan]="1" *ngFor="let item of arrayOne(5); let i = index">
+      <app-production-card [id]="i"></app-production-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-sidenav-container>
+

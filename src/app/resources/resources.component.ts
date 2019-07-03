@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { SellEnergy, MultiSelected, Reset, HardReset } from './resources.actions';
+import { SellEnergy, MultiSelected, Reset, HardReset, ChangeMoney } from './resources.actions';
 import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
+import { PowerPlantReset } from '../powerplant/powerplant.actions';
+import { ProductionReset } from '../production/production.actions';
 
 @Component({
   selector: 'app-resources',
@@ -44,10 +46,15 @@ export class ResourcesComponent implements OnInit {
   }
 
   reset() {
-    this.store.dispatch(new Reset(10));
+    this.store.dispatch(new Reset(0));
+    this.store.dispatch(new PowerPlantReset());
+    this.store.dispatch(new ProductionReset());
+    this.store.dispatch(new ChangeMoney(9999999));
   }
 
   hardReset() {
     this.store.dispatch(new HardReset());
+    this.store.dispatch(new PowerPlantReset());
+    this.store.dispatch(new ProductionReset());
   }
 }

@@ -12,4 +12,7 @@ export class ProductionComponent implements OnInit {
   ngOnInit() {
   }
 
+  arrayOne(num: number) {
+    return Array(num);
+  }
 }

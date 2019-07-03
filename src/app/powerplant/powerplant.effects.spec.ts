@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PowerplantEffects } from './powerplant.effects';
 
 describe('PowerplantEffects', () => {
+// tslint:disable-next-line: prefer-const
   let actions$: Observable<any>;
   let effects: PowerplantEffects;
 

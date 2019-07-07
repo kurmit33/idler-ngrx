@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { SellEnergy, MultiSelected, Reset, HardReset, ChangeMoney } from './resources.actions';
+import { SellEnergy, MultiSelected, Reset, HardReset, ChangeMoney, ChangeWorkers } from './resources.actions';
 import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
 import { PowerPlantReset } from '../powerplant/powerplant.actions';
 import { ProductionReset } from '../production/production.actions';
@@ -46,10 +46,15 @@ export class ResourcesComponent implements OnInit {
   }
 
   reset() {
+    let build: number;
+    const sub = this.buildings$.subscribe(data => build = data);
+    sub.unsubscribe();
+    build = Math.floor(build / 1000);
     this.store.dispatch(new Reset(0));
     this.store.dispatch(new PowerPlantReset());
     this.store.dispatch(new ProductionReset());
-    this.store.dispatch(new ChangeMoney(9999999));
+    this.store.dispatch(new ChangeMoney(0));
+    this.store.dispatch(new ChangeWorkers(build));
   }
 
   hardReset() {

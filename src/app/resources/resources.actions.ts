@@ -102,5 +102,5 @@ export class HardReset implements Action {
   readonly type = RESOURCES_ACTION_TYPES.HardResetAction;
 }
 
-export type ResourcesActions = ChangePrice | ChangeEnergy | SellEnergy | ChangeProduction
+export type ResourcesActions = ChangePrice | ChangeEnergy | SellEnergy | ChangeProduction | ChangeWorkers | ChangeGreen
   | SetResources | PriceTime | MultiSelected | LastTime | Reset | HardReset | ChangeMoney | ChangeBuildings;

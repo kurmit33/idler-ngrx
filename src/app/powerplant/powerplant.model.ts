@@ -22,8 +22,14 @@ export class PowerPlant {
     },
   };
   multi = {
-    build: 0,
-    upgrade: 0,
+    build: {
+      money: 0,
+      green: 0,
+    },
+    upgrade: {
+      money: 0,
+      green: 0,
+    },
     production: {
       energy: 0,
       green: 0,
@@ -48,18 +54,20 @@ export class PowerPlant {
     this.name = type;
     this.id = id;
     this.image = '../assets/image/powerplant/' + this.name + '.png';
-    this.multi.build = multiPrice;
-    this.multi.upgrade = multiPrice * 50;
-    this.multi.production.energy = multiProduction;
+    this.multi.build.money = multiPrice;
+    this.multi.build.green = multiPrice / 100;
+    this.multi.upgrade.money = multiPrice * 50;
+    this.multi.upgrade.green = multiPrice / 2;
+    this.multi.production.energy = multiProduction / 4;
     this.price.research.money = this.startPrice.money * multiPrice * 50;
     this.type = type;
     if (isGreen) {
       this.avatar = '../assets/image/powerplant/green-energy.png';
-      this.multi.production.green = multiProduction * 100;
+      this.multi.production.green = multiProduction;
     } else {
       this.startPrice.green = 100;
       this.avatar = '../assets/image/powerplant/dirty-energy.png';
-      this.price.research.green = this.startPrice.green * multiPrice * 50;
+      this.price.research.green = this.startPrice.green * multiPrice / 10;
     }
   }
 }

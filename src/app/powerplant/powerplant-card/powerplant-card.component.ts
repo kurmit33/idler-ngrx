@@ -65,9 +65,17 @@ export class PowerplantCardComponent implements OnInit {
     if (this.powerPlant.price.build.money <= this.money
       && this.multi <= this.powerPlant.space - this.powerPlant.buildings
       && (this.powerPlant.price.build.green <= this.green || this.powerPlant.price.build.green === 0)) {
-      this.store.dispatch(new ChangeMoney(-this.powerPlant.price.build.money));
-      this.store.dispatch(new ChangeGreen(-this.powerPlant.price.build.green));
+      const priceMoney = this.powerPlant.price.build.money;
+      const priceGreen = this.powerPlant.price.build.green;
       this.store.dispatch(new Build({ ind: this.powerPlant.type, diff: this.multi }));
+      if (this.powerPlant.startPrice.green) {
+        this.store.dispatch(new ChangeGreen(-priceGreen));
+      } else {
+        const temp = this.powerPlant.multi.production.green * this.multi;
+        this.store.dispatch(new ChangeGreen(temp));
+        console.log(temp);
+      }
+      this.store.dispatch(new ChangeMoney(-priceMoney));
       delay(100);
     }
   }
@@ -75,17 +83,23 @@ export class PowerplantCardComponent implements OnInit {
   upgrade() {
     if (this.powerPlant.price.upgrade.money <= this.money
       && (this.powerPlant.price.upgrade.green <= this.green || this.powerPlant.price.upgrade.green === 0)) {
-      this.store.dispatch(new ChangeMoney(-this.powerPlant.price.upgrade.money));
-      this.store.dispatch(new ChangeGreen(-this.powerPlant.price.upgrade.green));
+      const priceMoney = this.powerPlant.price.upgrade.money;
+      const priceGreen = this.powerPlant.price.upgrade.green;
       this.store.dispatch(new Upgrade({ ind: this.powerPlant.type, diff: this.multi }));
+      if (this.powerPlant.startPrice.green > 0) {
+        this.store.dispatch(new ChangeGreen(-priceGreen));
+      } else {
+        this.store.dispatch(new ChangeGreen(this.powerPlant.multi.production.green * this.multi));
+      }
+      this.store.dispatch(new ChangeMoney(-priceMoney));
       delay(100);
     }
   }
 
   hire() {
     if (this.multi <= this.workers) {
-      this.store.dispatch(new ChangeWorkers(-this.multi));
       this.store.dispatch(new Hire({ ind: this.powerPlant.type, diff: this.multi }));
+      this.store.dispatch(new ChangeWorkers(-this.multi));
       delay(100);
     }
   }

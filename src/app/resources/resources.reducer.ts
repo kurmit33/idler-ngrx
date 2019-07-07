@@ -22,7 +22,7 @@ export const initialState: State = {
   priceTime: 0,
   multi: 1,
   buildings: 0,
-  production: 1,
+  production: 0,
   lastTime: new Date(),
 };
 
@@ -86,6 +86,16 @@ export function reducer(state = initialState, action: ResourcesActions): State {
       return {
         ...state,
         money: state.money + action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.Workers:
+      return {
+        ...state,
+        workers: state.workers + action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.GreenAction:
+      return {
+        ...state,
+        green: state.green + action.payload,
       };
     case RESOURCES_ACTION_TYPES.SetAction:
       return action.payload;

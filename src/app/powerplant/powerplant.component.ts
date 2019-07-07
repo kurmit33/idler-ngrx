@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PowerPlant } from './powerplant.model';
 import { AppState } from '../reducers';
-import { Store, select } from '@ngrx/store';
-import { takePowerPlants } from './powerplant.selector';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-powerplant',
@@ -13,7 +11,7 @@ export class PowerplantComponent implements OnInit {
   constructor(private store: Store<AppState>) {
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   arrayOne(num: number) {
     return Array(num);

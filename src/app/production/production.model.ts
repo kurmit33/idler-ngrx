@@ -43,9 +43,9 @@ export class ProductionAction {
     this.name = type;
     this.multi.upgrade = multiPrice;
     this.multi.production = multiProduction;
-    this.production.startTime = 50 * Math.round(multiProduction / 2);
-    this.production.time = 50 * Math.round(multiProduction / 2);
-    this.production.energy = 1 * multiProduction;
+    this.production.startTime = 60 * Math.round(multiProduction / 2) * 4;
+    this.production.time = 60 * Math.round(multiProduction / 2) * 4;
+    this.production.energy = 30 * multiProduction;
     this.type = type;
     this.image = '../assets/image/production/' + this.name + '.png';
     this.status.research = research;

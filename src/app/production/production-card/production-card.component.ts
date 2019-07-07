@@ -53,22 +53,25 @@ export class ProductionCardComponent implements OnInit {
 
   upgrade() {
     if (this.productionBuilding.price.upgrade <= this.money) {
-      this.store.dispatch(new ChangeMoney(-this.productionBuilding.price.upgrade * 10));
+      const temp = this.productionBuilding.price.upgrade;
       this.store.dispatch(new Upgrade({ ind: this.productionBuilding.type, diff: this.multi }));
+      this.store.dispatch(new ChangeMoney(-temp));
     }
   }
 
   buy() {
     if ((this.productionBuilding.price.timeResource <= this.money)
       && (this.productionBuilding.space - this.productionBuilding.timeResources >= this.multi)) {
-      this.store.dispatch(new ChangeMoney(-this.productionBuilding.price.timeResource));
+      const temp = this.productionBuilding.price.timeResource;
       this.store.dispatch(new Buy({ ind: this.productionBuilding.type, diff: this.multi }));
+      this.store.dispatch(new ChangeMoney(-temp));
     }
   }
 
   research() {
     if ((this.productionBuilding.price.research <= this.money)) {
       this.store.dispatch(new ResearchProduction(this.productionBuilding.type));
+      this.store.dispatch(new ChangeMoney(-this.productionBuilding.price.research));
     }
   }
 }

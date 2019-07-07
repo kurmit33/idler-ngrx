@@ -1,7 +1,6 @@
 import { ProductionAction } from './production.model';
 import { PRODUCTION_TYPES, PRODUCTION_ACTION_TYPES, ProductionActions } from './production.actions';
 
-
 export interface State {
   cell: ProductionAction;
   bucket: ProductionAction;
@@ -21,7 +20,7 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: ProductionActions): State {
   switch (action.type) {
-    case PRODUCTION_ACTION_TYPES.LoadProductions:
+    case PRODUCTION_ACTION_TYPES.LOAD_PRODUCTIONS:
       return action.payload;
     case PRODUCTION_ACTION_TYPES.Reset:
       return initialState;
@@ -145,196 +144,50 @@ export function reducer(state = initialState, action: ProductionActions): State 
         default:
           return state;
       }
-    case PRODUCTION_ACTION_TYPES.ButtonStatusAction:
-      switch (action.payload.ind) {
-        case PRODUCTION_TYPES.CELL:
-          return {
-            ...state,
-            cell: {
-              ...state.cell,
-              status: {
-                ...state.cell.status,
-                upgradeButton: action.payload.diffUpg,
-                timeResourceButton: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.BUCKET:
-          return {
-            ...state,
-            bucket: {
-              ...state.bucket,
-              status: {
-                ...state.bucket.status,
-                upgradeButton: action.payload.diffUpg,
-                timeResourceButton: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.HAMSTER:
-          return {
-            ...state,
-            hamster: {
-              ...state.hamster,
-              status: {
-                ...state.hamster.status,
-                upgradeButton: action.payload.diffUpg,
-                timeResourceButton: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.DYNAMO:
-          return {
-            ...state,
-            dynamo: {
-              ...state.dynamo,
-              status: {
-                ...state.dynamo.status,
-                upgradeButton: action.payload.diffUpg,
-                timeResourceButton: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.THUNDER:
-          return {
-            ...state,
-            thunder: {
-              ...state.thunder,
-              status: {
-                ...state.thunder.status,
-                upgradeButton: action.payload.diffUpg,
-                timeResourceButton: action.payload.diffTime,
-              }
-            }
-          };
-        default:
-          return state;
-      }
-    case PRODUCTION_ACTION_TYPES.ResearchButtonStatusAction:
-      switch (action.payload.ind) {
-        case PRODUCTION_TYPES.CELL:
-          return {
-            ...state,
-            cell: {
-              ...state.cell,
-              status: {
-                ...state.cell.status,
-                researchButton: action.payload.diff,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.BUCKET:
-          return {
-            ...state,
-            bucket: {
-              ...state.bucket,
-              status: {
-                ...state.bucket.status,
-                researchButton: action.payload.diff,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.HAMSTER:
-          return {
-            ...state,
-            hamster: {
-              ...state.hamster,
-              status: {
-                ...state.hamster.status,
-                researchButton: action.payload.diff,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.DYNAMO:
-          return {
-            ...state,
-            dynamo: {
-              ...state.dynamo,
-              status: {
-                ...state.dynamo.status,
-                researchButton: action.payload.diff,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.THUNDER:
-          return {
-            ...state,
-            thunder: {
-              ...state.thunder,
-              status: {
-                ...state.thunder.status,
-                researchButton: action.payload.diff,
-              }
-            }
-          };
-        default:
-          return state;
-      }
     case PRODUCTION_ACTION_TYPES.PriceAction:
-      switch (action.payload.ind) {
-        case PRODUCTION_TYPES.CELL:
-          return {
-            ...state,
-            cell: {
-              ...state.cell,
-              price: {
-                ...state.cell.price,
-                upgrade: action.payload.diffUpg,
-                timeResource: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.BUCKET:
-          return {
-            ...state,
-            bucket: {
-              ...state.bucket,
-              price: {
-                ...state.bucket.price,
-                upgrade: action.payload.diffUpg,
-                timeResource: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.HAMSTER:
-          return {
-            ...state,
-            hamster: {
-              ...state.hamster,
-              price: {
-                ...state.hamster.price,
-                upgrade: action.payload.diffUpg,
-                timeResource: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.DYNAMO:
-          return {
-            ...state,
-            dynamo: {
-              ...state.dynamo,
-              price: {
-                ...state.dynamo.price,
-                upgrade: action.payload.diffUpg,
-                timeResource: action.payload.diffTime,
-              }
-            }
-          };
-        case PRODUCTION_TYPES.THUNDER:
-          return {
-            ...state,
-            thunder: {
-              ...state.thunder,
-              price: {
-                ...state.thunder.price,
-                upgrade: action.payload.diffUpg,
-                timeResource: action.payload.diffTime,
-              }
-            }
-          };
-        default:
-          return state;
-      }
+      return {
+        ...state,
+        cell: {
+          ...state.cell,
+          price: {
+            ...state.cell.price,
+            upgrade: action.payload.cell.diffUpg,
+            timeResource: action.payload.cell.diffTime,
+          }
+        },
+        bucket: {
+          ...state.bucket,
+          price: {
+            ...state.bucket.price,
+            upgrade: action.payload.bucket.diffUpg,
+            timeResource: action.payload.bucket.diffTime,
+          }
+        },
+        hamster: {
+          ...state.hamster,
+          price: {
+            ...state.hamster.price,
+            upgrade: action.payload.hamster.diffUpg,
+            timeResource: action.payload.hamster.diffTime,
+          }
+        },
+        dynamo: {
+          ...state.dynamo,
+          price: {
+            ...state.dynamo.price,
+            upgrade: action.payload.dynamo.diffUpg,
+            timeResource: action.payload.dynamo.diffTime,
+          }
+        },
+        thunder: {
+          ...state.thunder,
+          price: {
+            ...state.thunder.price,
+            upgrade: action.payload.thunder.diffUpg,
+            timeResource: action.payload.thunder.diffTime,
+          }
+        }
+      };
     case PRODUCTION_ACTION_TYPES.BuyAction:
       switch (action.payload.ind) {
         case PRODUCTION_TYPES.CELL:
@@ -410,7 +263,7 @@ export function reducer(state = initialState, action: ProductionActions): State 
               level: state.cell.level + action.payload.diff,
               production: {
                 ...state.cell.production,
-                energy: (1 + state.cell.level + action.payload.diff) * state.cell.multi.production,
+                energy: (1 + state.cell.level + action.payload.diff) * state.cell.multi.production * 30,
               }
             }
           };
@@ -422,7 +275,7 @@ export function reducer(state = initialState, action: ProductionActions): State 
               level: state.bucket.level + action.payload.diff,
               production: {
                 ...state.bucket.production,
-                energy: (1 + state.bucket.level + action.payload.diff) * state.bucket.multi.production,
+                energy: (1 + state.bucket.level + action.payload.diff) * state.bucket.multi.production * 30,
               }
             }
           };
@@ -434,7 +287,7 @@ export function reducer(state = initialState, action: ProductionActions): State 
               level: state.hamster.level + action.payload.diff,
               production: {
                 ...state.hamster.production,
-                energy: (1 + state.hamster.level + action.payload.diff) * state.hamster.multi.production,
+                energy: (1 + state.hamster.level + action.payload.diff) * state.hamster.multi.production * 30,
               }
             }
           };
@@ -446,7 +299,7 @@ export function reducer(state = initialState, action: ProductionActions): State 
               level: state.dynamo.level + action.payload.diff,
               production: {
                 ...state.dynamo.production,
-                energy: (1 + state.dynamo.level + action.payload.diff) * state.dynamo.multi.production,
+                energy: (1 + state.dynamo.level + action.payload.diff) * state.dynamo.multi.production * 30,
               }
             }
           };
@@ -458,13 +311,120 @@ export function reducer(state = initialState, action: ProductionActions): State 
               level: state.thunder.level + action.payload.diff,
               production: {
                 ...state.thunder.production,
-                energy: (1 + state.thunder.level + action.payload.diff) * state.thunder.multi.production,
+                energy: (1 + state.thunder.level + action.payload.diff) * state.thunder.multi.production * 30,
               }
             }
           };
         default:
           return state;
       }
+    case PRODUCTION_ACTION_TYPES.TimeAction:
+      return {
+        ...state,
+        cell: {
+          ...state.cell,
+          time: action.payload.cell,
+        },
+        bucket: {
+          ...state.bucket,
+          time: action.payload.bucket,
+        },
+        hamster: {
+          ...state.hamster,
+          time: action.payload.hamster,
+        },
+        dynamo: {
+          ...state.dynamo,
+          time: action.payload.dynamo,
+        },
+        thunder: {
+          ...state.thunder,
+          time: action.payload.thunder,
+        }
+      };
+    case PRODUCTION_ACTION_TYPES.ButtonStatusAction:
+      return {
+        ...state,
+        cell: {
+          ...state.cell,
+          status: {
+            ...state.cell.status,
+            upgradeButton: action.payload.cell.upg,
+            timeResourceButton: action.payload.cell.time,
+          }
+        },
+        bucket: {
+          ...state.bucket,
+          status: {
+            ...state.bucket.status,
+            upgradeButton: action.payload.bucket.upg,
+            timeResourceButton: action.payload.bucket.time,
+          }
+        },
+        hamster: {
+          ...state.hamster,
+          status: {
+            ...state.hamster.status,
+            upgradeButton: action.payload.hamster.upg,
+            timeResourceButton: action.payload.hamster.time,
+          }
+        },
+        dynamo: {
+          ...state.dynamo,
+          status: {
+            ...state.dynamo.status,
+            upgradeButton: action.payload.dynamo.upg,
+            timeResourceButton: action.payload.dynamo.time,
+          }
+        },
+        thunder: {
+          ...state.thunder,
+          status: {
+            ...state.thunder.status,
+            upgradeButton: action.payload.thunder.upg,
+            timeResourceButton: action.payload.thunder.time,
+          }
+        }
+      };
+    case PRODUCTION_ACTION_TYPES.ResearchButtonAction:
+      return {
+        ...state,
+        cell: {
+          ...state.cell,
+          status: {
+            ...state.cell.status,
+            researchButton: action.payload.cell,
+          }
+        },
+        bucket: {
+          ...state.bucket,
+          status: {
+            ...state.bucket.status,
+            researchButton: action.payload.bucket,
+          }
+        },
+        hamster: {
+          ...state.hamster,
+          status: {
+            ...state.hamster.status,
+            researchButton: action.payload.hamster,
+          }
+        },
+        dynamo: {
+          ...state.dynamo,
+          status: {
+            ...state.dynamo.status,
+            researchButton: action.payload.dynamo,
+          }
+        },
+        thunder: {
+          ...state.thunder,
+          status: {
+            ...state.thunder.status,
+            researchButton: action.payload.thunder,
+          }
+        }
+      };
     default:
       return state;
   }

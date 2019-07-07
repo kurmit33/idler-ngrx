@@ -33,10 +33,10 @@ export class ResourcesEffects {
   }
 
   @Effect({ dispatch: false })
-  changePrice$ = this.actions$.pipe(
+  works$ = this.actions$.pipe(
     ofType(RESOURCES_ACTION_TYPES.StartType),
     tap(() => {
-      interval(1000).subscribe(() => {
+      interval(5000).subscribe(() => {
         this.store.dispatch(new ChangeEnergy(this.productionPerTick()));
       });
       interval(60000).subscribe(() => {
@@ -71,7 +71,8 @@ export class ResourcesEffects {
 
   productionPerTick(): number {
     let production: number;
-    this.store.pipe(select(takeProduction)).subscribe(data => production = data);
+    const sub = this.store.pipe(select(takeProduction)).subscribe(data => production = data);
+    sub.unsubscribe();
     return production;
   }
 

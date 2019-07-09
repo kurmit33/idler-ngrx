@@ -1,23 +1,24 @@
-import { Event } from './event.model';
-import { EventActions, EventActionTypes, EVENT_TYPES } from './event.actions';
+
+import { EventActions, EVENT_TYPES, EVENT_ACTION_TYPES } from './event.actions';
+import { GameEvent } from './event.model';
 
 
 export interface State {
-  workEvent: Event;
+  workEvent: GameEvent;
 }
 
 export const initialState: State = {
-  workEvent: new Event('noEvent', 0, 'No Event!', EVENT_TYPES.NO),
+  workEvent: new GameEvent('noEvent', 0, 'No Event!', EVENT_TYPES.NO),
 };
 
 export function reducer(state = initialState, action: EventActions): State {
   switch (action.type) {
-    case EventActionTypes.ChangeEventAction:
+    case EVENT_ACTION_TYPES.CHANGE_EVENT:
       return {
         ...state,
         workEvent: action.payload,
       };
-    case EventActionTypes.ChangeTimeAction:
+    case EVENT_ACTION_TYPES.CHANGE_TIME:
       return {
         ...state,
         workEvent: {

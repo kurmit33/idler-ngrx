@@ -1,11 +1,10 @@
 import { Action } from '@ngrx/store';
-import { Event } from './event.model';
-import { POWERPLANT_TYPES } from '../powerplant/powerplant.actions';
+import { GameEvent } from './event.model';
 
-export enum EventActionTypes {
-  LoadEvents = '[Event] Load Events',
-  ChangeEventAction = '[Event] Change Event',
-  ChangeTimeAction = '[Event] Change Time',
+export enum EVENT_ACTION_TYPES {
+  LOAD_EVENT = '[Event] Load Events',
+  CHANGE_EVENT = '[Event] Change Event',
+  CHANGE_TIME = '[Event] Change Time',
 }
 
 export enum EVENT_TYPES {
@@ -26,17 +25,17 @@ export enum EVENT_TYPES {
 }
 
 export class LoadEvents implements Action {
-  readonly type = EventActionTypes.LoadEvents;
+  readonly type = EVENT_ACTION_TYPES.LOAD_EVENT;
 }
 
 export class ChangeEvent implements Action {
-  readonly type = EventActionTypes.ChangeEventAction;
+  readonly type = EVENT_ACTION_TYPES.CHANGE_EVENT;
 
-  constructor(public payload: Event) {}
+  constructor(public payload: GameEvent) {}
 }
 
 export class ChangeTimeEvent implements Action {
-  readonly type = EventActionTypes.ChangeTimeAction;
+  readonly type = EVENT_ACTION_TYPES.CHANGE_TIME;
 
   constructor(public payload: number) {}
 }

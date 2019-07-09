@@ -34,7 +34,7 @@ export const takeWorkes = createSelector(
 
 export const takeMulti = createSelector(
   selectResourcesState,
-  resouces => resouces.multi,
+  resouces => resouces.buyMulti,
 );
 
 export const takeProduction = createSelector(

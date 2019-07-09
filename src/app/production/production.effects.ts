@@ -38,7 +38,7 @@ export class ProductionEffects {
   works$ = this.actions$.pipe(
     ofType(RESOURCES_ACTION_TYPES.StartType),
     tap(() => {
-      interval(5000).subscribe(() => {
+      interval(250).subscribe(() => {
         const time = {
           cell: 0,
           bucket: 0,

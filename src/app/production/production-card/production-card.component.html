@@ -32,10 +32,10 @@
         <mat-grid-tile [colspan]="6" [rowspan]="1">Upgrade price</mat-grid-tile>
         <mat-grid-tile [colspan]="6" [rowspan]="1">Child price</mat-grid-tile>
         <mat-grid-tile [colspan]="6" [rowspan]="1">
-          {{productionBuilding.price.upgrade}}<mat-icon>attach_money</mat-icon>
+          {{productionBuilding.price.upgrade | shortNumber: 2 : true}}<mat-icon>attach_money</mat-icon>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="6" [rowspan]="1">
-          {{productionBuilding.price.timeResource}}<mat-icon>attach_money</mat-icon>
+          {{productionBuilding.price.timeResource | shortNumber: 2 : true}}<mat-icon>attach_money</mat-icon>
         </mat-grid-tile>
       </mat-grid-list>
     </mat-card-content>

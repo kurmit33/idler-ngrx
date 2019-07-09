@@ -1,4 +1,4 @@
-export class Event {
+export class GameEvent {
   title: string;
   id: number;
   name: string;
@@ -18,9 +18,9 @@ export class Event {
     }
     if (id) {
       if (Number(Math.random() * (10 - 1) + 1) <= 6) {
-        this.multi = Number(Math.random() * (0.5 - 0.1) + 0.1);
+        this.multi = Number((Math.random() * (0.5 - 0.1) + 0.1).toFixed(2));
       } else {
-        this.multi  = Number(Math.random() * (0.5 - 0.1) + 0.1 * (-1));
+        this.multi  = Number(((Math.random() * (0.5 - 0.1) + 0.1) * (-1)).toFixed(2));
       }
     } else {
       this.multi = 0;

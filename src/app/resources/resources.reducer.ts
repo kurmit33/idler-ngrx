@@ -7,7 +7,8 @@ export interface State {
   price: number;
   energy: number;
   priceTime: number;
-  multi: number;
+  buyMulti: number;
+  prodMulti: number;
   buildings: number;
   production: number;
   lastTime: Date;
@@ -20,7 +21,8 @@ export const initialState: State = {
   price: 0.1,
   energy: 0,
   priceTime: 0,
-  multi: 1,
+  buyMulti: 1,
+  prodMulti: 0,
   buildings: 0,
   production: 0,
   lastTime: new Date(),
@@ -67,7 +69,7 @@ export function reducer(state = initialState, action: ResourcesActions): State {
     case RESOURCES_ACTION_TYPES.MultiAction:
       return {
         ...state,
-        multi: action.payload,
+        buyMulti: action.payload,
       };
     case RESOURCES_ACTION_TYPES.HardResetAction:
       return initialState;

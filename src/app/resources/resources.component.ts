@@ -5,7 +5,7 @@ import { AppState } from '../reducers';
 import { SellEnergy, MultiSelected, Reset, HardReset, ChangeMoney, ChangeWorkers } from './resources.actions';
 import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
 import { ResetPowerPlants } from '../powerplant/powerplant.actions';
-import { ProductionReset } from '../production/production.actions';
+import { ResetProductions } from '../production/production.actions';
 
 @Component({
   selector: 'app-resources',
@@ -52,7 +52,7 @@ export class ResourcesComponent implements OnInit {
     build = Math.floor(build / 1000);
     this.store.dispatch(new Reset(0));
     this.store.dispatch(new ResetPowerPlants());
-    this.store.dispatch(new ProductionReset());
+    this.store.dispatch(new ResetProductions());
     this.store.dispatch(new ChangeMoney(0));
     this.store.dispatch(new ChangeWorkers(build));
   }
@@ -60,6 +60,6 @@ export class ResourcesComponent implements OnInit {
   hardReset() {
     this.store.dispatch(new HardReset());
     this.store.dispatch(new ResetPowerPlants());
-    this.store.dispatch(new ProductionReset());
+    this.store.dispatch(new ResetProductions());
   }
 }

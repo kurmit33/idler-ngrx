@@ -3,16 +3,15 @@ import { State } from './production.reducer';
 
 export enum PRODUCTION_ACTION_TYPES {
   LOAD_PRODUCTIONS = '[Production] Load Productions',
-  Reset = '[Production] Reset Productions',
-  CellWork = '[Production] Cell Work Action',
-  WorkTime = '[Production] Work Time Action',
-  TimeAction = '[Production] Change Time Action',
-  UpgradeAction = '[Production] Upgrade Action',
-  BuyAction = '[Production] Buy Action',
-  PriceAction = '[Production] Update Price',
-  ResearchAction = '[Production] Research Satus',
-  ButtonStatusAction = '[Production] Button Status',
-  ResearchButtonAction = '[Production] Research Button Status',
+  RESET_PRODUCTIONS = '[Production] Reset Productions',
+  WORK_PRODUCTIONS = '[Production] Work Productions',
+  TIME_PRODUCTIONS = '[Production] Time Productions',
+  BUTTONS_PRODUCTIONS = '[Production] Buttons Productions',
+  RESEARCH_BUTTON_PRODUCTIONS = '[Production] Research Button Productions',
+  PRICE_PRODUCTIONS = '[Production] Price Productions',
+  BUY_PRODUCTIONS = '[Production] Buy Productions',
+  UPGRADE_PRODUCTIONS = '[Production] Upgrade Productions',
+  RESEARCH_PRODUCTIONS = '[Production] Research Productions',
 }
 
 export enum PRODUCTION_TYPES {
@@ -28,9 +27,16 @@ export class LoadProductions implements Action {
 
   constructor(public payload: State) { }
 }
+export class ResetProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.RESET_PRODUCTIONS;
+}
+export class WorkProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.WORK_PRODUCTIONS;
 
-export class ChangeTime implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.TimeAction;
+  constructor(public payload: { ind: PRODUCTION_TYPES, diff: boolean }) { }
+}
+export class TimeProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.TIME_PRODUCTIONS;
 
   constructor(public payload: {
     cell: number,
@@ -40,9 +46,8 @@ export class ChangeTime implements Action {
     thunder: number,
   }) { }
 }
-
-export class ProductionButtons implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.ButtonStatusAction;
+export class ButtonsProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.BUTTONS_PRODUCTIONS;
 
   constructor(public payload: {
     cell: {
@@ -67,9 +72,19 @@ export class ProductionButtons implements Action {
     },
   }) { }
 }
+export class ButtonResearchProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.RESEARCH_BUTTON_PRODUCTIONS;
 
-export class ProdPrice implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.PriceAction;
+  constructor(public payload: {
+    cell: boolean,
+    bucket: boolean,
+    hamster: boolean,
+    dynamo: boolean,
+    thunder: boolean,
+  }) { }
+}
+export class PriceProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.PRICE_PRODUCTIONS;
 
   constructor(public payload: {
     cell: {
@@ -94,46 +109,21 @@ export class ProdPrice implements Action {
     },
   }) { }
 }
-
-export class Work implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.WorkTime;
-
-  constructor(public payload: { ind: PRODUCTION_TYPES, diff: boolean }) { }
-}
-
-export class Buy implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.BuyAction;
+export class BuyProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.BUY_PRODUCTIONS;
 
   constructor(public payload: { ind: PRODUCTION_TYPES, diff: number }) { }
 }
-
-export class Upgrade implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.UpgradeAction;
+export class UpgradeProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.UPGRADE_PRODUCTIONS;
 
   constructor(public payload: { ind: PRODUCTION_TYPES, diff: number }) { }
 }
-
-export class ProductionReset implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.Reset;
-}
-
 export class ResearchProduction implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.ResearchAction;
+  readonly type = PRODUCTION_ACTION_TYPES.RESEARCH_PRODUCTIONS;
 
   constructor(public payload: PRODUCTION_TYPES) { }
 }
 
-export class ButtonResearch implements Action {
-  readonly type = PRODUCTION_ACTION_TYPES.ResearchButtonAction;
-
-  constructor(public payload: {
-    cell: boolean,
-    bucket: boolean,
-    hamster: boolean,
-    dynamo: boolean,
-    thunder: boolean,
-  }) { }
-}
-
-export type ProductionActions = ProdPrice | ProductionButtons | ButtonResearch
-  | LoadProductions | ProductionReset | ChangeTime | Work | Upgrade | Buy | ResearchProduction;
+export type ProductionActions = LoadProductions | ResetProductions | WorkProductions | TimeProductions
+  | ButtonsProductions | ButtonResearchProductions | PriceProductions | BuyProductions | UpgradeProductions | ResearchProduction;

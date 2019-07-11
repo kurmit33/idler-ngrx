@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
-  PRODUCTION_ACTION_TYPES, Work,
-  ProdPrice, PRODUCTION_TYPES, ChangeTime, ProductionButtons, ButtonResearch
+  PRODUCTION_ACTION_TYPES, PRODUCTION_TYPES, WorkProductions, PriceProductions,
+  TimeProductions, ButtonsProductions, ButtonResearchProductions
 } from './production.actions';
 import { tap } from 'rxjs/operators';
 import { interval } from 'rxjs';
@@ -59,7 +59,7 @@ export class ProductionEffects {
                 production = prod.production.energy + prod.production.energy * this.workEvent.multi;
               }
               this.store.dispatch(new ChangeEnergy(production));
-              this.store.dispatch(new Work({ ind: prod.type, diff: false }));
+              this.store.dispatch(new WorkProductions({ ind: prod.type, diff: false }));
             } else {
               switch (prod.type) {
                 case PRODUCTION_TYPES.CELL:
@@ -81,7 +81,7 @@ export class ProductionEffects {
             }
           }
         });
-        this.store.dispatch(new ChangeTime(time));
+        this.store.dispatch(new TimeProductions(time));
       });
     })
   );
@@ -90,8 +90,8 @@ export class ProductionEffects {
   @Effect({ dispatch: false })
   changePrice$ = this.actions$.pipe(
     ofType(
-      RESOURCES_ACTION_TYPES.MultiAction, PRODUCTION_ACTION_TYPES.UpgradeAction,
-      RESOURCES_ACTION_TYPES.StartType, PRODUCTION_ACTION_TYPES.Reset, PRODUCTION_ACTION_TYPES.BuyAction
+      RESOURCES_ACTION_TYPES.MultiAction, PRODUCTION_ACTION_TYPES.UPGRADE_PRODUCTIONS,
+      RESOURCES_ACTION_TYPES.StartType, PRODUCTION_ACTION_TYPES.RESET_PRODUCTIONS, PRODUCTION_ACTION_TYPES.BUY_PRODUCTIONS
     ),
     tap(() => {
       const payload = {
@@ -147,7 +147,7 @@ export class ProductionEffects {
             break;
         }
       });
-      this.store.dispatch(new ProdPrice(payload));
+      this.store.dispatch(new PriceProductions(payload));
     })
   );
 
@@ -155,7 +155,7 @@ export class ProductionEffects {
   buttonStatus$ = this.actions$.pipe(
     ofType(
       RESOURCES_ACTION_TYPES.MoneyAction, RESOURCES_ACTION_TYPES.SellAction,
-      PRODUCTION_ACTION_TYPES.PriceAction, PRODUCTION_ACTION_TYPES.WorkTime
+      PRODUCTION_ACTION_TYPES.PRICE_PRODUCTIONS, PRODUCTION_ACTION_TYPES.WORK_PRODUCTIONS
     ),
     tap(() => {
       const payload = {
@@ -212,14 +212,14 @@ export class ProductionEffects {
             break;
         }
       });
-      this.store.dispatch(new ProductionButtons(payload));
+      this.store.dispatch(new ButtonsProductions(payload));
     })
   );
 
   @Effect({ dispatch: false })
   researchButtonStatus$ = this.actions$.pipe(
     ofType(RESOURCES_ACTION_TYPES.MoneyAction, RESOURCES_ACTION_TYPES.SellAction,
-      RESOURCES_ACTION_TYPES.StartType, PRODUCTION_ACTION_TYPES.Reset),
+      RESOURCES_ACTION_TYPES.StartType, PRODUCTION_ACTION_TYPES.RESET_PRODUCTIONS),
     tap(() => {
       const payload = {
         cell: true,
@@ -253,7 +253,7 @@ export class ProductionEffects {
             break;
         }
       });
-      this.store.dispatch(new ButtonResearch(payload));
+      this.store.dispatch(new ButtonResearchProductions(payload));
     })
   );
 }

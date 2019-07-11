@@ -2,11 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { ProductionAction } from '../production.model';
-import { PRODUCTION_TYPES, Work, Buy, Upgrade, ResearchProduction } from '../production.actions';
+import { WorkProductions, BuyProductions, UpgradeProductions, ResearchProduction } from '../production.actions';
 import { takeMulti, takeMoney } from 'src/app/resources/resources.selectors';
 import { takeProductionObj, selectProductionObj } from '../production.selectors';
 import { ChangeMoney, ChangeEnergy } from 'src/app/resources/resources.actions';
-import { Effect } from '@ngrx/effects';
 
 @Component({
   selector: 'app-production-card',
@@ -47,14 +46,14 @@ export class ProductionCardComponent implements OnInit {
     if (this.productionBuilding.space - this.productionBuilding.timeResources === 0) {
       this.store.dispatch(new ChangeEnergy(this.productionBuilding.production.energy));
     } else {
-      this.store.dispatch(new Work({ ind: this.productionBuilding.type, diff: true }));
+      this.store.dispatch(new WorkProductions({ ind: this.productionBuilding.type, diff: true }));
     }
   }
 
   upgrade() {
     if (this.productionBuilding.price.upgrade <= this.money) {
       const temp = this.productionBuilding.price.upgrade;
-      this.store.dispatch(new Upgrade({ ind: this.productionBuilding.type, diff: this.multi }));
+      this.store.dispatch(new UpgradeProductions({ ind: this.productionBuilding.type, diff: this.multi }));
       this.store.dispatch(new ChangeMoney(-temp));
     }
   }
@@ -63,7 +62,7 @@ export class ProductionCardComponent implements OnInit {
     if ((this.productionBuilding.price.timeResource <= this.money)
       && (this.productionBuilding.space - this.productionBuilding.timeResources >= this.multi)) {
       const temp = this.productionBuilding.price.timeResource;
-      this.store.dispatch(new Buy({ ind: this.productionBuilding.type, diff: this.multi }));
+      this.store.dispatch(new BuyProductions({ ind: this.productionBuilding.type, diff: this.multi }));
       this.store.dispatch(new ChangeMoney(-temp));
     }
   }

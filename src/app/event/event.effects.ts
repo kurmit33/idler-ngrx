@@ -23,7 +23,7 @@ export class EventEffects {
     ofType(RESOURCES_ACTION_TYPES.StartType, RESOURCES_ACTION_TYPES.ResetAction, RESOURCES_ACTION_TYPES.HardResetAction),
     tap(() => {
       interval(1000).subscribe(() => {
-        if (this.eventWork.workTime >= 10) {
+        if (this.eventWork.workTime >= 60) {
           this.switchEvent(Math.random() * (99 - 1) + 1);
         } else {
           this.store.dispatch(new ChangeTimeEvent(this.eventWork.workTime + 1));

@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../reducers';
 import { SellEnergy, MultiSelected, Reset, HardReset, ChangeMoney, ChangeWorkers } from './resources.actions';
 import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
-import { PowerPlantReset } from '../powerplant/powerplant.actions';
+import { ResetPowerPlants } from '../powerplant/powerplant.actions';
 import { ProductionReset } from '../production/production.actions';
 
 @Component({
@@ -51,7 +51,7 @@ export class ResourcesComponent implements OnInit {
     sub.unsubscribe();
     build = Math.floor(build / 1000);
     this.store.dispatch(new Reset(0));
-    this.store.dispatch(new PowerPlantReset());
+    this.store.dispatch(new ResetPowerPlants());
     this.store.dispatch(new ProductionReset());
     this.store.dispatch(new ChangeMoney(0));
     this.store.dispatch(new ChangeWorkers(build));
@@ -59,7 +59,7 @@ export class ResourcesComponent implements OnInit {
 
   hardReset() {
     this.store.dispatch(new HardReset());
-    this.store.dispatch(new PowerPlantReset());
+    this.store.dispatch(new ResetPowerPlants());
     this.store.dispatch(new ProductionReset());
   }
 }

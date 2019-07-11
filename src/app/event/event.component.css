@@ -1,0 +1,11 @@
+.flex-spacer{
+  flex-grow: 1;
+}
+
+.top-toolbar{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}

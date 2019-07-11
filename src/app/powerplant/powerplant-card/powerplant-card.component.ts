@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { PowerPlant } from '../powerplant.model';
 import { AppState } from 'src/app/reducers';
 import { takePowerPlants, selectPowerPlant } from '../powerplant.selector';
-import { Build, Upgrade, Hire, Research } from '../powerplant.actions';
+import { BuildPowerPlant, UpgradePowerPlant, HirePowerPlant, ResearchPowerPlant } from '../powerplant.actions';
 import { takeMulti, takeMoney, takeGreen, takeWorkes } from 'src/app/resources/resources.selectors';
 import { ChangeMoney, ChangeGreen, ChangeWorkers } from 'src/app/resources/resources.actions';
 import { delay } from 'rxjs/operators';
@@ -57,7 +57,7 @@ export class PowerplantCardComponent implements OnInit {
     if (this.powerPlant.price.research.money <= this.money
       && (this.powerPlant.price.research.green <= this.green || this.powerPlant.price.research.green === 0)) {
       this.store.dispatch(new ChangeMoney(-this.powerPlant.price.research.money));
-      this.store.dispatch(new Research(this.powerPlant.type));
+      this.store.dispatch(new ResearchPowerPlant(this.powerPlant.type));
     }
   }
 
@@ -67,7 +67,7 @@ export class PowerplantCardComponent implements OnInit {
       && (this.powerPlant.price.build.green <= this.green || this.powerPlant.price.build.green === 0)) {
       const priceMoney = this.powerPlant.price.build.money;
       const priceGreen = this.powerPlant.price.build.green;
-      this.store.dispatch(new Build({ ind: this.powerPlant.type, diff: this.multi }));
+      this.store.dispatch(new BuildPowerPlant({ ind: this.powerPlant.type, diff: this.multi }));
       if (this.powerPlant.startPrice.green) {
         this.store.dispatch(new ChangeGreen(-priceGreen));
       } else {
@@ -85,7 +85,7 @@ export class PowerplantCardComponent implements OnInit {
       && (this.powerPlant.price.upgrade.green <= this.green || this.powerPlant.price.upgrade.green === 0)) {
       const priceMoney = this.powerPlant.price.upgrade.money;
       const priceGreen = this.powerPlant.price.upgrade.green;
-      this.store.dispatch(new Upgrade({ ind: this.powerPlant.type, diff: this.multi }));
+      this.store.dispatch(new UpgradePowerPlant({ ind: this.powerPlant.type, diff: this.multi }));
       if (this.powerPlant.startPrice.green > 0) {
         this.store.dispatch(new ChangeGreen(-priceGreen));
       } else {
@@ -98,7 +98,7 @@ export class PowerplantCardComponent implements OnInit {
 
   hire() {
     if (this.multi <= this.workers) {
-      this.store.dispatch(new Hire({ ind: this.powerPlant.type, diff: this.multi }));
+      this.store.dispatch(new HirePowerPlant({ ind: this.powerPlant.type, diff: this.multi }));
       this.store.dispatch(new ChangeWorkers(-this.multi));
       delay(100);
     }

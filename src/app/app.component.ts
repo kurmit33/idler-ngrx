@@ -6,6 +6,7 @@ import { delay } from 'rxjs/operators';
 import { takeState } from './app.selectors';
 import { LoadPowerPlants } from './powerplant/powerplant.actions';
 import { LoadProductions } from './production/production.actions';
+import { LoadEvents } from './event/event.actions';
 
 @Component({
   selector: 'app-root',
@@ -40,6 +41,7 @@ export class AppComponent {
       this.store.dispatch(new SetResources(load.resources));
       this.store.dispatch(new LoadPowerPlants(load.powerplant));
       this.store.dispatch(new LoadProductions(load.production));
+      this.store.dispatch(new LoadEvents(load.event));
     }
     this.store.dispatch(new StartAction());
   }

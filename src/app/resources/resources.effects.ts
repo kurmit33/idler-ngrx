@@ -52,7 +52,7 @@ export class ResourcesEffects {
 
   @Effect({dispatch: false})
   production$ = this.actions$.pipe(
-    ofType(POWERPLANT_ACTION_TYPES.ProductionAction, EVENT_ACTION_TYPES.CHANGE_EVENT),
+    ofType(POWERPLANT_ACTION_TYPES.PRODUCTION_POWERPLANT, EVENT_ACTION_TYPES.CHANGE_EVENT),
     tap(() => {
       let prod = 0;
       this.arrPP.forEach((power) => {
@@ -68,7 +68,7 @@ export class ResourcesEffects {
 
   @Effect({dispatch: false})
   buildings$ = this.actions$.pipe(
-    ofType(POWERPLANT_ACTION_TYPES.BuildPowerPlants),
+    ofType(POWERPLANT_ACTION_TYPES.BUILD_POWERPLANT),
     tap(() => {
       let buildings = 0;
       this.arrPP.forEach((power) => {

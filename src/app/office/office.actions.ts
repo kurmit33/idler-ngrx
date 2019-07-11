@@ -1,11 +1,11 @@
 import { Action } from '@ngrx/store';
 
-export enum OfficeActionTypes {
-  LoadOffices = '[Office] Load Offices',
+export enum OFFICE_ACTION_TYPES {
+  LOAD_OFFICE = '[Office] Load Offices',
 }
 
 export class LoadOffices implements Action {
-  readonly type = OfficeActionTypes.LoadOffices;
+  readonly type = OFFICE_ACTION_TYPES.LOAD_OFFICE;
 }
 
 

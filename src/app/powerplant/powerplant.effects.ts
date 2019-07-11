@@ -3,8 +3,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { State } from './powerplant.reducer';
 import { Store, select } from '@ngrx/store';
 import {
-  POWERPLANT_ACTION_TYPES, Price, ButtonStatus,
-  HireButton, ResearchButton, Build, Upgrade, POWERPLANT_TYPES, ProductionPowerPlant, ChangePowerPlantPrice
+  POWERPLANT_ACTION_TYPES, POWERPLANT_TYPES, ResearchButtonPowerPlants, HireButtonPowerPlants,
+  ButtonsPowerPlant, PricePowerPlants, BuildPowerPlant, UpgradePowerPlant, ProductionPowerPlants, ChangePricePowerPlant,
 } from './powerplant.actions';
 import { tap } from 'rxjs/operators';
 import { takeMoney, takeGreen, takeMulti, takeWorkes } from '../resources/resources.selectors';
@@ -44,7 +44,7 @@ export class PowerplantEffects {
 
   @Effect({ dispatch: false })
   researchButtonStatus$ = this.actions$.pipe(
-    ofType(POWERPLANT_ACTION_TYPES.Reset, RESOURCES_ACTION_TYPES.StartType,
+    ofType(POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS, RESOURCES_ACTION_TYPES.StartType,
       RESOURCES_ACTION_TYPES.MoneyAction, RESOURCES_ACTION_TYPES.SellAction),
     tap(() => {
       const payload = {
@@ -101,13 +101,13 @@ export class PowerplantEffects {
             break;
         }
       });
-      this.store.dispatch(new ResearchButton(payload));
+      this.store.dispatch(new ResearchButtonPowerPlants(payload));
     })
   );
 
   @Effect({ dispatch: false })
   hireButtonStatus$ = this.actions$.pipe(
-    ofType(POWERPLANT_ACTION_TYPES.Reset, RESOURCES_ACTION_TYPES.StartType,
+    ofType(POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS, RESOURCES_ACTION_TYPES.StartType,
       RESOURCES_ACTION_TYPES.Workers, RESOURCES_ACTION_TYPES.MultiAction),
     tap(() => {
       const payload = {
@@ -162,14 +162,14 @@ export class PowerplantEffects {
             break;
         }
       });
-      this.store.dispatch(new HireButton(payload));
+      this.store.dispatch(new HireButtonPowerPlants(payload));
     })
   );
 
   @Effect({ dispatch: false })
   buttonStatus$ = this.actions$.pipe(
     ofType(
-      RESOURCES_ACTION_TYPES.SellAction, RESOURCES_ACTION_TYPES.MoneyAction, POWERPLANT_ACTION_TYPES.PriceAction,
+      RESOURCES_ACTION_TYPES.SellAction, RESOURCES_ACTION_TYPES.MoneyAction, POWERPLANT_ACTION_TYPES.PRICE_POWERPLANT,
     ),
     tap(() => {
       const payload = {
@@ -274,13 +274,13 @@ export class PowerplantEffects {
             break;
         }
       });
-      this.store.dispatch(new ButtonStatus(payload));
+      this.store.dispatch(new ButtonsPowerPlant(payload));
     })
   );
 
   @Effect({ dispatch: false })
   changePrice$ = this.actions$.pipe(
-    ofType(RESOURCES_ACTION_TYPES.MultiAction, RESOURCES_ACTION_TYPES.StartType, POWERPLANT_ACTION_TYPES.Reset),
+    ofType(RESOURCES_ACTION_TYPES.MultiAction, RESOURCES_ACTION_TYPES.StartType, POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS),
     tap(() => {
       const payload = {
         wind: {
@@ -451,25 +451,25 @@ export class PowerplantEffects {
             break;
         }
       });
-      this.store.dispatch(new Price(payload));
+      this.store.dispatch(new PricePowerPlants(payload));
     }));
 
   @Effect({ dispatch: false })
   changeProduction$ = this.actions$.pipe(
-    ofType<Build | Upgrade>(POWERPLANT_ACTION_TYPES.BuildPowerPlants, POWERPLANT_ACTION_TYPES.UpgradePowerPlants),
+    ofType<BuildPowerPlant | UpgradePowerPlant>(POWERPLANT_ACTION_TYPES.BUILD_POWERPLANT, POWERPLANT_ACTION_TYPES.UPGRADE_POWERPLANT),
     tap((action) => {
       let powerPlant: PowerPlant;
       const sub = this.store.pipe(select(selectPowerPlant, action.payload.ind)).subscribe(data => powerPlant = data);
       const temp = powerPlant.buildings * powerPlant.multi.production.energy * (powerPlant.level + 1);
       const tempProduction = temp + (temp * powerPlant.engineers * 0.02) + (temp * this.workers * 0.002);
-      this.store.dispatch(new ProductionPowerPlant({ ind: powerPlant.type, diff: tempProduction }));
+      this.store.dispatch(new ProductionPowerPlants({ ind: powerPlant.type, diff: tempProduction }));
       sub.unsubscribe();
     })
   );
 
   @Effect({ dispatch: false })
   changePowerPrice$ = this.actions$.pipe(
-    ofType<Build | Upgrade>(POWERPLANT_ACTION_TYPES.BuildPowerPlants, POWERPLANT_ACTION_TYPES.UpgradePowerPlants),
+    ofType<BuildPowerPlant | UpgradePowerPlant>(POWERPLANT_ACTION_TYPES.BUILD_POWERPLANT, POWERPLANT_ACTION_TYPES.UPGRADE_POWERPLANT),
     tap((action) => {
       let powerPlant: PowerPlant;
       const sub = this.store.pipe(select(selectPowerPlant, action.payload.ind)).subscribe(data => powerPlant = data);
@@ -491,7 +491,7 @@ export class PowerplantEffects {
         payload.build.green = this.multi * (powerPlant.buildings + 1) * powerPlant.multi.build.green;
         payload.upgrade.green = this.multi * (powerPlant.level + 1) * powerPlant.multi.upgrade.green;
       }
-      this.store.dispatch(new ChangePowerPlantPrice(payload));
+      this.store.dispatch(new ChangePricePowerPlant(payload));
       sub.unsubscribe();
     })
   );

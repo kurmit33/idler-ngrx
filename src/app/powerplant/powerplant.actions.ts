@@ -1,18 +1,18 @@
 import { Action } from '@ngrx/store';
 
 export enum POWERPLANT_ACTION_TYPES {
-  LoadPowerPlants = '[Powerplant] Load Powerplants',
-  BuildPowerPlants = '[Powerplant] Build Powerplants',
-  UpgradePowerPlants = '[Powerplant] Upgrade Powerplants',
-  HirePowerPlants = '[Powerplant] Hire Powerplants',
-  ResearchPowerPlants = '[Powerplant] Research Powerplants',
-  PriceAction = '[Powerplant] Change Price Powerplants',
-  Buttons = '[Powerplant] Change Button Status',
-  HireButtonAction = '[Powerplant] Change Hire Button Status',
-  ResearchButtonAction = '[Powerplant] Change Research Button Status',
-  ProductionAction = '[Powerplant] Change Production Action',
-  Reset = '[Powerplant] Reset Action',
-  ChangePriceAction = '[Powerplant] Change Price PowerPlant',
+  LOAD_POWERPLANTS = '[Powerplant] Load PowerPlants',
+  RESET_POWERPLANTS = '[Powerplant] Reset PowerPlants',
+  PRODUCTION_POWERPLANT = '[Powerplant] Production PowerPlants',
+  PRICE_POWERPLANT = '[Powerplant] Price PowerPlant',
+  PRICE_POWERPLANTS = '[Powerplant] Price PowerPlants',
+  BUTTONS_POWERPLANTS = '[Powerplant] Button PowerPlants',
+  HIRE_BUTTON_POWERPLANTS = '[Powerplant] Hire Button PowerPlants',
+  RESEARCH_BUTTON_POWERPLANTS = '[Powerplant] Research Button PowerPlants',
+  BUILD_POWERPLANT = '[Powerplant] Build PowerPlants',
+  UPGRADE_POWERPLANT = '[Powerplant] Upgrade PowerPlants',
+  HIRE_POWERPLANT = '[Powerplant] Hire PowerPlants',
+  RESEARCH_POWERPLANT = '[Powerplant] Research PowerPlants',
 }
 
 export enum POWERPLANT_TYPES {
@@ -29,22 +29,20 @@ export enum POWERPLANT_TYPES {
 }
 
 export class LoadPowerPlants implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.LoadPowerPlants;
+  readonly type = POWERPLANT_ACTION_TYPES.LOAD_POWERPLANTS;
 
   constructor(public payload: any) { }
 }
-
-export class PowerPlantReset implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.Reset;
+export class ResetPowerPlants implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS;
 }
-
-export class ProductionPowerPlant implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.ProductionAction;
+export class ProductionPowerPlants implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.PRODUCTION_POWERPLANT;
 
   constructor(public payload: { ind: POWERPLANT_TYPES, diff: number }) { }
 }
-export class ChangePowerPlantPrice implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.ChangePriceAction;
+export class ChangePricePowerPlant implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.PRICE_POWERPLANT;
 
   constructor(public payload: {
     ind: POWERPLANT_TYPES,
@@ -58,9 +56,160 @@ export class ChangePowerPlantPrice implements Action {
     }
   }) { }
 }
+export class PricePowerPlants implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.PRICE_POWERPLANTS;
 
-export class HireButton implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.HireButtonAction;
+  constructor(public payload: {
+    wind: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    solar: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    wave: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    water: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    geothermal: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    coal: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    biogas: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    oil: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    nuclear: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+    fusion: {
+      build: {
+        money: number,
+        green: number,
+      },
+      upgrade: {
+        money: number,
+        green: number,
+      },
+    },
+  }) { }
+}
+export class ButtonsPowerPlant implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.BUTTONS_POWERPLANTS;
+
+  constructor(public payload: {
+    wind: {
+      build: boolean,
+      upg: boolean,
+    },
+    solar: {
+      build: boolean,
+      upg: boolean,
+    },
+    wave: {
+      build: boolean,
+      upg: boolean,
+    },
+    water: {
+      build: boolean,
+      upg: boolean,
+    },
+    geothermal: {
+      build: boolean,
+      upg: boolean,
+    },
+    coal: {
+      build: boolean,
+      upg: boolean,
+    },
+    biogas: {
+      build: boolean,
+      upg: boolean,
+    },
+    oil: {
+      build: boolean,
+      upg: boolean,
+    },
+    nuclear: {
+      build: boolean,
+      upg: boolean,
+    },
+    fusion: {
+      build: boolean,
+      upg: boolean,
+    },
+  }) { }
+}
+export class HireButtonPowerPlants implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.HIRE_BUTTON_POWERPLANTS;
 
   constructor(public payload: {
     wind: boolean,
@@ -75,9 +224,8 @@ export class HireButton implements Action {
     fusion: boolean,
   }) { }
 }
-
-export class ResearchButton implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.ResearchButtonAction;
+export class ResearchButtonPowerPlants implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.RESEARCH_BUTTON_POWERPLANTS;
 
   constructor(public payload: {
     wind: boolean,
@@ -92,184 +240,28 @@ export class ResearchButton implements Action {
     fusion: boolean,
   }) { }
 }
-
-export class Build implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.BuildPowerPlants;
-
-  constructor(public payload: { ind: POWERPLANT_TYPES, diff: number }) { }
-}
-
-export class Upgrade implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.UpgradePowerPlants;
+export class BuildPowerPlant implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.BUILD_POWERPLANT;
 
   constructor(public payload: { ind: POWERPLANT_TYPES, diff: number }) { }
 }
-
-export class Hire implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.HirePowerPlants;
+export class UpgradePowerPlant implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.UPGRADE_POWERPLANT;
 
   constructor(public payload: { ind: POWERPLANT_TYPES, diff: number }) { }
 }
+export class HirePowerPlant implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.HIRE_POWERPLANT;
 
-export class Research implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.ResearchPowerPlants;
+  constructor(public payload: { ind: POWERPLANT_TYPES, diff: number }) { }
+}
+export class ResearchPowerPlant implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.RESEARCH_POWERPLANT;
 
   constructor(public payload: POWERPLANT_TYPES) { }
 }
 
-export class ButtonStatus implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.Buttons;
+export type POWERPLANT_ACTIONS = LoadPowerPlants | ResetPowerPlants | ProductionPowerPlants | ChangePricePowerPlant
+  | ButtonsPowerPlant | HireButtonPowerPlants | ResearchButtonPowerPlants | BuildPowerPlant
+  | UpgradePowerPlant | HirePowerPlant | ResearchPowerPlant | PricePowerPlants;
 
-  constructor(public payload: {
-    wind: {
-      build: boolean,
-      upg: boolean,
-    },
-    solar: {
-      build: boolean,
-      upg: boolean,
-    },
-    wave: {
-      build: boolean,
-      upg: boolean,
-    },
-    water: {
-      build: boolean,
-      upg: boolean,
-    },
-    geothermal: {
-      build: boolean,
-      upg: boolean,
-    },
-    coal: {
-      build: boolean,
-      upg: boolean,
-    },
-    biogas: {
-      build: boolean,
-      upg: boolean,
-    },
-    oil: {
-      build: boolean,
-      upg: boolean,
-    },
-    nuclear: {
-      build: boolean,
-      upg: boolean,
-    },
-    fusion: {
-      build: boolean,
-      upg: boolean,
-    },
-  }) { }
-}
-
-export class Price implements Action {
-  readonly type = POWERPLANT_ACTION_TYPES.PriceAction;
-
-  constructor(public payload: {
-    wind: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    solar: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    wave: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    water: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    geothermal: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    coal: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    biogas: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    oil: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    nuclear: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-    fusion: {
-      build: {
-        money: number,
-        green: number,
-      },
-      upgrade: {
-        money: number,
-        green: number,
-      },
-    },
-  }) { }
-}
-
-export type POWERPLANT_ACTIONS = HireButton | ResearchButton | ProductionPowerPlant | Upgrade | Build
-  | LoadPowerPlants | Hire | Research | Price | ButtonStatus | PowerPlantReset | ChangePowerPlantPrice;

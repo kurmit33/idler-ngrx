@@ -13,6 +13,8 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: EventActions): State {
   switch (action.type) {
+    case EVENT_ACTION_TYPES.LOAD_EVENT:
+      return action.payload;
     case EVENT_ACTION_TYPES.CHANGE_EVENT:
       return {
         ...state,

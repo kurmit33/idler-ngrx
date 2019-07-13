@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../reducers';
-import { SellEnergy, MultiSelected, Reset, HardReset, ChangeMoney, ChangeWorkers } from './resources.actions';
+import { Reset, HardReset, ChangeMoney, ChangeWorkers, ChangeEnergy, ChangeMulit } from './resources.actions';
 import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
 import { ResetPowerPlants } from '../powerplant/powerplant.actions';
 import { ResetProductions } from '../production/production.actions';
@@ -34,15 +34,23 @@ export class ResourcesComponent implements OnInit {
     this.multi$ = this.store.pipe(select(takeMulti));
     this.buildings$ = this.store.pipe(select(takeBuildings));
     this.production$ = this.store.pipe(select(takeProduction));
-    this.multi$.subscribe(data => this.selected = data.toString());
+    const sub = this.multi$.subscribe(data => this.selected = data.toString());
+    sub.unsubscribe();
   }
 
   sell() {
-    this.store.dispatch(new SellEnergy());
+    let energy: number;
+    let price: number;
+    const subEnergy = this.energy$.subscribe(data => energy = data);
+    const subPrice = this.price$.subscribe(data => price = data);
+    subEnergy.unsubscribe();
+    subPrice.unsubscribe();
+    this.store.dispatch(new ChangeMoney(energy * price));
+    this.store.dispatch(new ChangeEnergy(-energy));
   }
 
   selectMulti() {
-    this.store.dispatch(new MultiSelected(Number(this.selected)));
+    this.store.dispatch(new ChangeMulit(Number(this.selected)));
   }
 
   reset() {

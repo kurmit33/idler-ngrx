@@ -44,8 +44,7 @@ export class PowerplantEffects {
 
   @Effect({ dispatch: false })
   researchButtonStatus$ = this.actions$.pipe(
-    ofType(POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS, RESOURCES_ACTION_TYPES.StartType,
-      RESOURCES_ACTION_TYPES.MoneyAction, RESOURCES_ACTION_TYPES.SellAction),
+    ofType(POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS, RESOURCES_ACTION_TYPES.START_GAME, RESOURCES_ACTION_TYPES.CHANGE_MONEY),
     tap(() => {
       const payload = {
         wind: true,
@@ -107,8 +106,8 @@ export class PowerplantEffects {
 
   @Effect({ dispatch: false })
   hireButtonStatus$ = this.actions$.pipe(
-    ofType(POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS, RESOURCES_ACTION_TYPES.StartType,
-      RESOURCES_ACTION_TYPES.Workers, RESOURCES_ACTION_TYPES.MultiAction),
+    ofType(POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS, RESOURCES_ACTION_TYPES.START_GAME,
+      RESOURCES_ACTION_TYPES.CHANGE_WORKERS, RESOURCES_ACTION_TYPES.CHANGE_MULTI),
     tap(() => {
       const payload = {
         wind: true,
@@ -168,9 +167,7 @@ export class PowerplantEffects {
 
   @Effect({ dispatch: false })
   buttonStatus$ = this.actions$.pipe(
-    ofType(
-      RESOURCES_ACTION_TYPES.SellAction, RESOURCES_ACTION_TYPES.MoneyAction, POWERPLANT_ACTION_TYPES.PRICE_POWERPLANT,
-    ),
+    ofType(RESOURCES_ACTION_TYPES.CHANGE_MONEY, POWERPLANT_ACTION_TYPES.PRICE_POWERPLANT),
     tap(() => {
       const payload = {
         wind: {
@@ -280,7 +277,7 @@ export class PowerplantEffects {
 
   @Effect({ dispatch: false })
   changePrice$ = this.actions$.pipe(
-    ofType(RESOURCES_ACTION_TYPES.MultiAction, RESOURCES_ACTION_TYPES.StartType, POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS),
+    ofType(RESOURCES_ACTION_TYPES.CHANGE_MULTI, RESOURCES_ACTION_TYPES.START_GAME, POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS),
     tap(() => {
       const payload = {
         wind: {

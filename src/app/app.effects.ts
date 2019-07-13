@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { LastTime } from './resources/resources.actions';
 import { AppState } from './reducers';
 import { Store } from '@ngrx/store';
 import { interval } from 'rxjs';
@@ -17,7 +16,6 @@ export class AppEffects {
     ofType(AppActionTypes.SaveAction),
     tap(() => {
       interval(5000).subscribe(() => {
-        this.store.dispatch(new LastTime(new Date()));
         this.res$.subscribe(data => this.res = data);
         localStorage.setItem('game', JSON.stringify(this.res));
       });

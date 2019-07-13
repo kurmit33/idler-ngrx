@@ -2,105 +2,76 @@ import { Action } from '@ngrx/store';
 import { State } from './resources.reducer';
 
 export enum RESOURCES_ACTION_TYPES {
-  PriceAction = '[Resources] Change Price Action',
-  EnergyAction = '[Resources] Change Energy Action',
-  SellAction = '[Resources] Sell Action',
-  SetAction = '[Resources] Set Action',
-  PriceTimeAction = '[Resources] Price Time Action',
-  StartType = '[Resources] Start Time Action',
-  MultiAction = '[Resources] Select Multi Action',
-  MoneyAction = '[Resources] Use Money Action',
-  LastTimeAction = '[Resources] Last Time Action',
-  ResetAction = '[Resources] Reset Action',
-  HardResetAction = '[Resources] Hard Reset Action',
-  GreenAction = '[Resources] Change Green Action',
-  Workers = '[Resources] Change Workers Action',
-  ProductionAction = '[Resources] Change Production Action',
-  Buildings = '[Resources] Change Buildings Action',
+  LOAD_RESOURCES = '[Resources] Load Resources',
+  START_GAME = '[Resources] Start Game',
+  CHANGE_ENERGY = '[Resources] Change Energy',
+  CHANGE_MONEY = '[Resources] Chang e Money',
+  CHANGE_GREEN = '[Resources] Change Green',
+  CHANGE_WORKERS = '[Resources] Change Workers',
+  CHANGE_BUILDINGS = '[Resources] Change Buildings',
+  CHANGE_PRODUCTION = '[Resources] Change Production',
+  CHANGE_MULTI = '[Resources] Change Multi',
+  CHANGE_PRICE = '[Resources] Change Price',
+  RESET = '[Resources] Reset',
+  HARD_RESET = '[Resources] Hard Reset' ,
 }
 
-export class ChangePrice implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.PriceAction;
-
-  constructor(public payload: number) { }
-}
-
-export class ChangeProduction implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.ProductionAction;
-
-  constructor(public payload: number) { }
-}
-
-export class ChangeEnergy implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.EnergyAction;
-
-  constructor(public payload: number) { }
-}
-
-export class PriceTime implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.PriceTimeAction;
-
-  constructor(public payload: number) { }
-}
-
-export class LastTime implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.LastTimeAction;
-
-  constructor(public payload: Date) { }
-}
-
-export class MultiSelected implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.MultiAction;
-
-  constructor(public payload: number) { }
-}
-
-export class ChangeMoney implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.MoneyAction;
-
-  constructor(public payload: number) { }
-}
-
-export class ChangeGreen implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.GreenAction;
-
-  constructor(public payload: number) { }
-}
-
-export class SellEnergy implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.SellAction;
-}
-export class StartAction implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.StartType;
-}
-
-export class SetResources implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.SetAction;
+export class LoadResources implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.LOAD_RESOURCES;
 
   constructor(public payload: State) { }
 }
-
-export class Reset implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.ResetAction;
+export class StartGame implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.START_GAME;
+}
+export class ChangeEnergy implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_ENERGY;
 
   constructor(public payload: number) { }
 }
+export class ChangeMoney implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_MONEY;
 
+  constructor(public payload: number) { }
+}
+export class ChangeGreen implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_GREEN;
+
+  constructor(public payload: number) { }
+}
 export class ChangeWorkers implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.Workers;
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_WORKERS;
 
   constructor(public payload: number) { }
 }
-
 export class ChangeBuildings implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.Buildings;
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_BUILDINGS;
 
   constructor(public payload: number) { }
 }
+export class ChangeProduction implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_PRODUCTION;
 
+  constructor(public payload: number) { }
+}
+export class ChangeMulit implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_MULTI;
+
+  constructor(public payload: number) { }
+}
+export class ChangePrice implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.CHANGE_PRICE;
+
+  constructor(public payload: number) { }
+}
+export class Reset implements Action {
+  readonly type = RESOURCES_ACTION_TYPES.RESET;
+
+  constructor(public payload: number) { }
+}
 export class HardReset implements Action {
-  readonly type = RESOURCES_ACTION_TYPES.HardResetAction;
+  readonly type = RESOURCES_ACTION_TYPES.HARD_RESET;
 }
 
-export type ResourcesActions = ChangePrice | ChangeEnergy | SellEnergy | ChangeProduction | ChangeWorkers | ChangeGreen
-  | SetResources | PriceTime | MultiSelected | LastTime | Reset | HardReset | ChangeMoney | ChangeBuildings;
+export type ResourcesActions = LoadResources | StartGame | ChangeEnergy | ChangeMoney | ChangeGreen | ChangeWorkers
+  | ChangeBuildings | ChangeProduction | ChangeMulit | ChangePrice | Reset | HardReset;

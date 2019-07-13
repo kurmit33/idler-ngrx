@@ -11,7 +11,6 @@ export interface State {
   prodMulti: number;
   buildings: number;
   production: number;
-  lastTime: Date;
 }
 
 export const initialState: State = {
@@ -25,38 +24,54 @@ export const initialState: State = {
   prodMulti: 0,
   buildings: 0,
   production: 0,
-  lastTime: new Date(),
 };
 
 export function reducer(state = initialState, action: ResourcesActions): State {
   switch (action.type) {
-    case RESOURCES_ACTION_TYPES.PriceAction:
+    case RESOURCES_ACTION_TYPES.LOAD_RESOURCES:
+      return action.payload;
+    case RESOURCES_ACTION_TYPES.CHANGE_ENERGY:
+      return {
+        ...state,
+        energy: state.energy + action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.CHANGE_MONEY:
+      return {
+        ...state,
+        money: state.money + action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.CHANGE_GREEN:
+      return {
+        ...state,
+        green: state.green + action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.CHANGE_WORKERS:
+      return {
+        ...state,
+        workers: state.workers + action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.CHANGE_BUILDINGS:
+      return {
+        ...state,
+        buildings: action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.CHANGE_PRODUCTION:
+      return {
+        ...state,
+        production: action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.CHANGE_MULTI:
+      return {
+        ...state,
+        buyMulti: action.payload,
+      };
+    case RESOURCES_ACTION_TYPES.CHANGE_PRICE:
       return {
         ...state,
         price: action.payload,
         priceTime: 0,
       };
-    case RESOURCES_ACTION_TYPES.Buildings:
-      return {
-        ...state,
-        buildings: action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.ProductionAction:
-      return {
-        ...state,
-        production: action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.PriceTimeAction:
-      return {
-        ...state,
-        priceTime: action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.EnergyAction:
-      return {
-        ...state,
-        energy: state.energy + action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.ResetAction:
+    case RESOURCES_ACTION_TYPES.RESET:
       return {
         ...state,
         workers: state.workers + action.payload,
@@ -66,41 +81,8 @@ export function reducer(state = initialState, action: ResourcesActions): State {
         buildings: 0,
         production: 0,
       };
-    case RESOURCES_ACTION_TYPES.MultiAction:
-      return {
-        ...state,
-        buyMulti: action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.HardResetAction:
+    case RESOURCES_ACTION_TYPES.HARD_RESET:
       return initialState;
-    case RESOURCES_ACTION_TYPES.LastTimeAction:
-      return {
-        ...state,
-        lastTime: action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.SellAction:
-      return {
-        ...state,
-        money: state.money + state.energy * state.price,
-        energy: 0,
-      };
-    case RESOURCES_ACTION_TYPES.MoneyAction:
-      return {
-        ...state,
-        money: state.money + action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.Workers:
-      return {
-        ...state,
-        workers: state.workers + action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.GreenAction:
-      return {
-        ...state,
-        green: state.green + action.payload,
-      };
-    case RESOURCES_ACTION_TYPES.SetAction:
-      return action.payload;
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from './reducers';
-import { SetResources, StartAction, LastTime } from './resources/resources.actions';
+import { LoadResources, StartGame } from './resources/resources.actions';
 import { delay } from 'rxjs/operators';
 import { takeState } from './app.selectors';
 import { LoadPowerPlants } from './powerplant/powerplant.actions';
@@ -23,7 +23,6 @@ export class AppComponent {
     if (localStorage.getItem('game')) {
       localStorage.clear();
     }
-    this.store.dispatch(new LastTime(new Date()));
     this.store.select(takeState).subscribe(data => this.res = data);
     localStorage.setItem('game', JSON.stringify(this.res));
     delay(1000);
@@ -38,11 +37,11 @@ export class AppComponent {
     const data = localStorage.getItem('game');
     if (data) {
       const load = JSON.parse(data);
-      this.store.dispatch(new SetResources(load.resources));
+      this.store.dispatch(new LoadResources(load.resources));
       this.store.dispatch(new LoadPowerPlants(load.powerplant));
       this.store.dispatch(new LoadProductions(load.production));
       this.store.dispatch(new LoadEvents(load.event));
     }
-    this.store.dispatch(new StartAction());
+    this.store.dispatch(new StartGame());
   }
 }

@@ -41,7 +41,7 @@ export class ProductionEffects {
 
   @Effect({ dispatch: false })
   works$ = this.actions$.pipe(
-    ofType(RESOURCES_ACTION_TYPES.StartType),
+    ofType(RESOURCES_ACTION_TYPES.START_GAME),
     tap(() => {
       interval(250).subscribe(() => {
         const time = {
@@ -90,8 +90,8 @@ export class ProductionEffects {
   @Effect({ dispatch: false })
   changePrice$ = this.actions$.pipe(
     ofType(
-      RESOURCES_ACTION_TYPES.MultiAction, PRODUCTION_ACTION_TYPES.UPGRADE_PRODUCTIONS,
-      RESOURCES_ACTION_TYPES.StartType, PRODUCTION_ACTION_TYPES.RESET_PRODUCTIONS, PRODUCTION_ACTION_TYPES.BUY_PRODUCTIONS
+      RESOURCES_ACTION_TYPES.CHANGE_MULTI, PRODUCTION_ACTION_TYPES.UPGRADE_PRODUCTIONS,
+      RESOURCES_ACTION_TYPES.START_GAME, PRODUCTION_ACTION_TYPES.RESET_PRODUCTIONS, PRODUCTION_ACTION_TYPES.BUY_PRODUCTIONS
     ),
     tap(() => {
       const payload = {
@@ -154,8 +154,7 @@ export class ProductionEffects {
   @Effect({ dispatch: false })
   buttonStatus$ = this.actions$.pipe(
     ofType(
-      RESOURCES_ACTION_TYPES.MoneyAction, RESOURCES_ACTION_TYPES.SellAction,
-      PRODUCTION_ACTION_TYPES.PRICE_PRODUCTIONS, PRODUCTION_ACTION_TYPES.WORK_PRODUCTIONS
+      RESOURCES_ACTION_TYPES.CHANGE_MONEY, PRODUCTION_ACTION_TYPES.PRICE_PRODUCTIONS, PRODUCTION_ACTION_TYPES.WORK_PRODUCTIONS
     ),
     tap(() => {
       const payload = {
@@ -218,8 +217,7 @@ export class ProductionEffects {
 
   @Effect({ dispatch: false })
   researchButtonStatus$ = this.actions$.pipe(
-    ofType(RESOURCES_ACTION_TYPES.MoneyAction, RESOURCES_ACTION_TYPES.SellAction,
-      RESOURCES_ACTION_TYPES.StartType, PRODUCTION_ACTION_TYPES.RESET_PRODUCTIONS),
+    ofType(RESOURCES_ACTION_TYPES.CHANGE_MONEY, RESOURCES_ACTION_TYPES.START_GAME, PRODUCTION_ACTION_TYPES.RESET_PRODUCTIONS),
     tap(() => {
       const payload = {
         cell: true,

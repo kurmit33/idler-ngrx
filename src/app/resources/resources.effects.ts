@@ -39,7 +39,7 @@ export class ResourcesEffects {
 
   @Effect({ dispatch: false })
   works$ = this.actions$.pipe(
-    ofType(RESOURCES_ACTION_TYPES.StartType),
+    ofType(RESOURCES_ACTION_TYPES.START_GAME),
     tap(() => {
       interval(250).subscribe(() => {
         this.store.dispatch(new ChangeEnergy(this.productionPerTick()));

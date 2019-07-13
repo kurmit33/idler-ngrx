@@ -20,7 +20,7 @@ export class EventEffects {
 
   @Effect({ dispatch: false })
   workEvent$ = this.actions$.pipe(
-    ofType(RESOURCES_ACTION_TYPES.StartType, RESOURCES_ACTION_TYPES.ResetAction, RESOURCES_ACTION_TYPES.HardResetAction),
+    ofType(RESOURCES_ACTION_TYPES.START_GAME, RESOURCES_ACTION_TYPES.RESET, RESOURCES_ACTION_TYPES.HARD_RESET),
     tap(() => {
       interval(1000).subscribe(() => {
         if (this.eventWork.workTime >= 60) {

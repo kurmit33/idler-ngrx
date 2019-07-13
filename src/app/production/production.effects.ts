@@ -12,18 +12,12 @@ import { ChangeEnergy, RESOURCES_ACTION_TYPES } from '../resources/resources.act
 import { takeProductionObj } from './production.selectors';
 import { ProductionAction } from './production.model';
 import { takeMulti, takeMoney } from '../resources/resources.selectors';
-import { EVENT_TYPES } from '../event/event.actions';
-import { GameEvent } from '../event/event.model';
-import { takeWorkEvent } from '../event/event.selectors';
-
-
 
 @Injectable()
 export class ProductionEffects {
   arrProd: ProductionAction[];
   multi: number;
   money: number;
-  workEvent: GameEvent;
   constructor(private actions$: Actions, private store: Store<AppState>) {
     this.store.pipe(select(takeProductionObj)).subscribe(data => {
       this.arrProd = [
@@ -36,7 +30,6 @@ export class ProductionEffects {
     });
     this.store.pipe(select(takeMulti)).subscribe(data => this.multi = data);
     this.store.pipe(select(takeMoney)).subscribe(data => this.money = data);
-    this.store.pipe(select(takeWorkEvent)).subscribe(data => this.workEvent = data);
   }
 
   @Effect({ dispatch: false })
@@ -54,11 +47,7 @@ export class ProductionEffects {
         this.arrProd.forEach((prod) => {
           if (prod.status.work) {
             if (prod.time >= prod.production.time) {
-              let production = prod.production.energy;
-              if (this.workEvent.type === EVENT_TYPES.PROD) {
-                production = prod.production.energy + prod.production.energy * this.workEvent.multi;
-              }
-              this.store.dispatch(new ChangeEnergy(production));
+              this.store.dispatch(new ChangeEnergy(prod.production.energy));
               this.store.dispatch(new WorkProductions({ ind: prod.type, diff: false }));
             } else {
               switch (prod.type) {

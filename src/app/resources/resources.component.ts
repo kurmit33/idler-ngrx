@@ -58,16 +58,14 @@ export class ResourcesComponent implements OnInit {
     const sub = this.buildings$.subscribe(data => build = data);
     sub.unsubscribe();
     build = Math.floor(build / 1000);
-    this.store.dispatch(new Reset(0));
     this.store.dispatch(new ResetPowerPlants());
     this.store.dispatch(new ResetProductions());
-    this.store.dispatch(new ChangeMoney(0));
-    this.store.dispatch(new ChangeWorkers(build));
+    this.store.dispatch(new Reset(build));
   }
 
   hardReset() {
-    this.store.dispatch(new HardReset());
     this.store.dispatch(new ResetPowerPlants());
     this.store.dispatch(new ResetProductions());
+    this.store.dispatch(new HardReset());
   }
 }

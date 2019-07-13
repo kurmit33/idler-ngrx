@@ -245,7 +245,7 @@ export function reducer(state = initialState, action: ProductionActions): State 
               timeResources: state.cell.timeResources + action.payload.diff,
               production: {
                 ...state.cell.production,
-                time: state.cell.production.startTime - ((action.payload.diff + state.cell.timeResources) * 1),
+                time: state.cell.production.startTime - ((action.payload.diff + state.cell.timeResources) * 4),
               }
             }
           };
@@ -425,6 +425,45 @@ export function reducer(state = initialState, action: ProductionActions): State 
         default:
           return state;
       }
+    case PRODUCTION_ACTION_TYPES.EVENT_PRODUCTIONS:
+      return {
+        ...state,
+        cell: {
+          ...state.cell,
+          production: {
+            ...state.cell.production,
+            energy: ((1 + state.cell.level ) * state.cell.multi.production * 30) * (1 + action.payload),
+          },
+        },
+        bucket: {
+          ...state.bucket,
+          production: {
+            ...state.bucket.production,
+            energy: ((1 + state.bucket.level ) * state.bucket.multi.production * 30) * (1 + action.payload),
+          },
+        },
+        hamster: {
+          ...state.hamster,
+          production: {
+            ...state.hamster.production,
+            energy: ((1 + state.hamster.level ) * state.hamster.multi.production * 30) * (1 + action.payload),
+          },
+        },
+        dynamo: {
+          ...state.dynamo,
+          production: {
+            ...state.dynamo.production,
+            energy: ((1 + state.dynamo.level ) * state.dynamo.multi.production * 30) * (1 + action.payload),
+          },
+        },
+        thunder: {
+          ...state.thunder,
+          production: {
+            ...state.thunder.production,
+            energy: ((1 + state.thunder.level ) * state.thunder.multi.production * 30) * (1 + action.payload),
+          },
+        }
+      };
     default:
       return state;
   }

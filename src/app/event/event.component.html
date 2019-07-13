@@ -4,7 +4,7 @@
       <mat-toolbar-row>
         <span>{{workEvent.title}}&nbsp;</span> <span *ngIf="workEvent.id">{{workEvent.multi | shortNumber: 2}}</span>
         <div class="flex-spacer"></div>
-        <span>Time left: {{workEvent.workTime | shortNumber: 0}}</span>
+        <span>Time left: {{60 - workEvent.workTime | shortNumber: 0}}</span>
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-toolbar color="primary" *ngIf="rwd">
@@ -12,7 +12,7 @@
         <span>{{workEvent.title}}&nbsp;</span> <span *ngIf="workEvent.id">{{workEvent.multi | shortNumber: 2}}</span>
       </mat-toolbar-row>
       <mat-toolbar-row>
-        <span>Time left: {{workEvent.workTime | shortNumber: 0}}</span>
+        <span>Time left: {{60 - workEvent.workTime | shortNumber: 0}}</span>
       </mat-toolbar-row>
     </mat-toolbar>
   </mat-sidenav-container>

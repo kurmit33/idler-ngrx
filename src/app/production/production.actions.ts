@@ -12,6 +12,7 @@ export enum PRODUCTION_ACTION_TYPES {
   BUY_PRODUCTIONS = '[Production] Buy Productions',
   UPGRADE_PRODUCTIONS = '[Production] Upgrade Productions',
   RESEARCH_PRODUCTIONS = '[Production] Research Productions',
+  EVENT_PRODUCTIONS = '[Production] Event Productions',
 }
 
 export enum PRODUCTION_TYPES {
@@ -124,6 +125,11 @@ export class ResearchProduction implements Action {
 
   constructor(public payload: PRODUCTION_TYPES) { }
 }
+export class EventProductions implements Action {
+  readonly type = PRODUCTION_ACTION_TYPES.EVENT_PRODUCTIONS;
 
-export type ProductionActions = LoadProductions | ResetProductions | WorkProductions | TimeProductions
-  | ButtonsProductions | ButtonResearchProductions | PriceProductions | BuyProductions | UpgradeProductions | ResearchProduction;
+  constructor(public payload: number) { }
+}
+
+export type ProductionActions = LoadProductions | ResetProductions | WorkProductions | TimeProductions | ButtonsProductions
+  | ButtonResearchProductions | PriceProductions | BuyProductions | UpgradeProductions | ResearchProduction | EventProductions;

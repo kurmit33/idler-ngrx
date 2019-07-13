@@ -4,14 +4,15 @@ import { State } from './powerplant.reducer';
 import { Store, select } from '@ngrx/store';
 import {
   POWERPLANT_ACTION_TYPES, POWERPLANT_TYPES, ResearchButtonPowerPlants, HireButtonPowerPlants,
-  ButtonsPowerPlant, PricePowerPlants, BuildPowerPlant, UpgradePowerPlant, ProductionPowerPlants, ChangePricePowerPlant,
+  ButtonsPowerPlant, PricePowerPlants, BuildPowerPlant, UpgradePowerPlant, ProductionPowerPlant, ChangePricePowerPlant,
 } from './powerplant.actions';
 import { tap } from 'rxjs/operators';
 import { takeMoney, takeGreen, takeMulti, takeWorkes } from '../resources/resources.selectors';
 import { PowerPlant } from './powerplant.model';
 import { takePowerPlants, selectPowerPlant } from './powerplant.selector';
 import { RESOURCES_ACTION_TYPES } from '../resources/resources.actions';
-
+import { GameEvent } from '../event/event.model';
+import { takeWorkEvent } from '../event/event.selectors';
 
 @Injectable()
 export class PowerplantEffects {
@@ -19,6 +20,7 @@ export class PowerplantEffects {
   green: number;
   multi: number;
   workers: number;
+  workEvent: GameEvent;
   arrPP: PowerPlant[];
 
   constructor(private actions$: Actions, private store: Store<State>) {
@@ -26,6 +28,7 @@ export class PowerplantEffects {
     this.store.pipe(select(takeGreen)).subscribe(data => this.green = data);
     this.store.pipe(select(takeMulti)).subscribe(data => this.multi = data);
     this.store.pipe(select(takeWorkes)).subscribe(data => this.workers = data);
+    this.store.pipe(select(takeWorkEvent)).subscribe(data => this.workEvent = data);
     this.store.pipe(select(takePowerPlants)).subscribe(data => {
       this.arrPP = [
         data.wind,
@@ -459,7 +462,7 @@ export class PowerplantEffects {
       const sub = this.store.pipe(select(selectPowerPlant, action.payload.ind)).subscribe(data => powerPlant = data);
       const temp = powerPlant.buildings * powerPlant.multi.production.energy * (powerPlant.level + 1);
       const tempProduction = temp + (temp * powerPlant.engineers * 0.02) + (temp * this.workers * 0.002);
-      this.store.dispatch(new ProductionPowerPlants({ ind: powerPlant.type, diff: tempProduction }));
+      this.store.dispatch(new ProductionPowerPlant({ ind: powerPlant.type, diff: tempProduction }));
       sub.unsubscribe();
     })
   );

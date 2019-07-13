@@ -3,7 +3,8 @@ import { Action } from '@ngrx/store';
 export enum POWERPLANT_ACTION_TYPES {
   LOAD_POWERPLANTS = '[Powerplant] Load PowerPlants',
   RESET_POWERPLANTS = '[Powerplant] Reset PowerPlants',
-  PRODUCTION_POWERPLANT = '[Powerplant] Production PowerPlants',
+  PRODUCTION_POWERPLANT = '[Powerplant] Production PowerPlant',
+  PRODUCTION_POWERPLANTS = '[Powerplant] Production PowerPlants',
   PRICE_POWERPLANT = '[Powerplant] Price PowerPlant',
   PRICE_POWERPLANTS = '[Powerplant] Price PowerPlants',
   BUTTONS_POWERPLANTS = '[Powerplant] Button PowerPlants',
@@ -13,6 +14,8 @@ export enum POWERPLANT_ACTION_TYPES {
   UPGRADE_POWERPLANT = '[Powerplant] Upgrade PowerPlants',
   HIRE_POWERPLANT = '[Powerplant] Hire PowerPlants',
   RESEARCH_POWERPLANT = '[Powerplant] Research PowerPlants',
+  EVENT_POWERPLANT = '[Powerplant] Event PowerPlant',
+  EVENT_POWERPLANTS = '[Powerplant] Event PowerPlants',
 }
 
 export enum POWERPLANT_TYPES {
@@ -36,10 +39,26 @@ export class LoadPowerPlants implements Action {
 export class ResetPowerPlants implements Action {
   readonly type = POWERPLANT_ACTION_TYPES.RESET_POWERPLANTS;
 }
-export class ProductionPowerPlants implements Action {
+export class ProductionPowerPlant implements Action {
   readonly type = POWERPLANT_ACTION_TYPES.PRODUCTION_POWERPLANT;
 
   constructor(public payload: { ind: POWERPLANT_TYPES, diff: number }) { }
+}
+export class ProductionPowerPlants implements Action {
+  readonly type = POWERPLANT_ACTION_TYPES.PRODUCTION_POWERPLANTS;
+
+  constructor(public payload: {
+    wind: number,
+    solar: number,
+    wave: number,
+    water: number,
+    geo: number,
+    coal: number,
+    bio: number,
+    oil: number,
+    nuclear: number,
+    fusion: number,
+  }) { }
 }
 export class ChangePricePowerPlant implements Action {
   readonly type = POWERPLANT_ACTION_TYPES.PRICE_POWERPLANT;
@@ -261,7 +280,7 @@ export class ResearchPowerPlant implements Action {
   constructor(public payload: POWERPLANT_TYPES) { }
 }
 
-export type POWERPLANT_ACTIONS = LoadPowerPlants | ResetPowerPlants | ProductionPowerPlants | ChangePricePowerPlant
-  | ButtonsPowerPlant | HireButtonPowerPlants | ResearchButtonPowerPlants | BuildPowerPlant
+export type POWERPLANT_ACTIONS = LoadPowerPlants | ResetPowerPlants | ProductionPowerPlant | ProductionPowerPlants
+  | ChangePricePowerPlant | ButtonsPowerPlant | HireButtonPowerPlants | ResearchButtonPowerPlants | BuildPowerPlant
   | UpgradePowerPlant | HirePowerPlant | ResearchPowerPlant | PricePowerPlants;
 

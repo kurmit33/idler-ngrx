@@ -1,5 +1,6 @@
-import { Action, State } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { GameEvent } from './event.model';
+import { State } from './event.reducer';
 
 export enum EVENT_ACTION_TYPES {
   LOAD_EVENT = '[Event] Load Events',
@@ -27,7 +28,7 @@ export enum EVENT_TYPES {
 export class LoadEvents implements Action {
   readonly type = EVENT_ACTION_TYPES.LOAD_EVENT;
 
-  constructor(public payload: any) {}
+  constructor(public payload: State) {}
 }
 
 export class ChangeEvent implements Action {

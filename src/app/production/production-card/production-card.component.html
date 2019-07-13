@@ -15,7 +15,7 @@
           Production:
         </mat-grid-tile>
         <mat-grid-tile [colspan]="6" [rowspan]="1">
-          {{productionBuilding.production.energy}} <mat-icon>power</mat-icon>
+          {{productionBuilding.production.energy | shortNumber: 2}} <mat-icon>power</mat-icon>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="6" [rowspan]="1">
           {{productionBuilding.production.time / 4}} <mat-icon>timer</mat-icon>

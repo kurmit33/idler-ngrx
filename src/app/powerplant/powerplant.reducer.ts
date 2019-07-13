@@ -1078,6 +1078,50 @@ export function reducer(state = initialState, action: POWERPLANT_ACTIONS): State
         default:
           return state;
       }
+    case POWERPLANT_ACTION_TYPES.PRODUCTION_POWERPLANTS:
+      return {
+        ...state,
+        wind: {
+          ...state.wind,
+          production: action.payload.wind,
+        },
+        solar: {
+          ...state.solar,
+          production: action.payload.solar,
+        },
+        wave: {
+          ...state.wave,
+          production: action.payload.wave,
+        },
+        water: {
+          ...state.water,
+          production: action.payload.water,
+        },
+        geothermal: {
+          ...state.geothermal,
+          production: action.payload.geo,
+        },
+        coal: {
+          ...state.coal,
+          production: action.payload.coal,
+        },
+        biogas: {
+          ...state.biogas,
+          production: action.payload.bio,
+        },
+        oil: {
+          ...state.oil,
+          production: action.payload.oil,
+        },
+        nuclear: {
+          ...state.nuclear,
+          production: action.payload.nuclear,
+        },
+        fusion: {
+          ...state.fusion,
+          production: action.payload.fusion,
+        },
+      };
     default:
       return state;
   }

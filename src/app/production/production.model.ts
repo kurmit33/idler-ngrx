@@ -1,5 +1,4 @@
 import { PRODUCTION_TYPES } from './production.actions';
-import { throwIfEmpty } from 'rxjs/operators';
 
 export class ProductionAction {
   name: string;
@@ -18,6 +17,7 @@ export class ProductionAction {
   multi = {
     production: 0,
     upgrade: 0,
+    event: 0,
   };
   level = 0;
   timeResources = 0;

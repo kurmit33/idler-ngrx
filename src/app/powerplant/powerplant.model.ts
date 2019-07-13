@@ -33,6 +33,7 @@ export class PowerPlant {
     production: {
       energy: 0,
       green: 0,
+      event: 0,
     }
   };
   buildings = 0;

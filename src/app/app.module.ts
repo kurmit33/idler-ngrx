@@ -25,6 +25,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -74,6 +76,8 @@ import { ShortNumberPipe } from './pipes/short-number.pipe';
     MatGridListModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatSliderModule,
+    MatSlideToggleModule,
     FormsModule,
     LayoutModule,
   ],

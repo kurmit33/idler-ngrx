@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { ProductionAction } from '../production.model';
-import { WorkProductions, BuyProductions, UpgradeProductions, ResearchProduction } from '../production.actions';
+import { WorkProductions, BuyProductions, UpgradeProductions, ResearchProduction, PRODUCTION_TYPES } from '../production.actions';
 import { takeMulti, takeMoney } from 'src/app/resources/resources.selectors';
 import { takeProductionObj, selectProductionObj } from '../production.selectors';
 import { ChangeMoney, ChangeEnergy } from 'src/app/resources/resources.actions';
@@ -13,33 +13,18 @@ import { ChangeMoney, ChangeEnergy } from 'src/app/resources/resources.actions';
   styleUrls: ['./production-card.component.css']
 })
 export class ProductionCardComponent implements OnInit {
-  @Input() id: number;
-  arrProd: ProductionAction[];
+  @Input() type: PRODUCTION_TYPES;
   productionBuilding: ProductionAction;
   multi: number;
   money: number;
   valueMulti: number;
-  constructor(private store: Store<AppState>) {
-    this.store.pipe(select(takeMulti)).subscribe(data => this.multi = data);
-    this.store.pipe(select(takeMoney)).subscribe(data => this.money = data);
-    this.store.pipe(select(takeProductionObj)).subscribe(data => {
-      this.arrProd = [
-        data.cell,
-        data.bucket,
-        data.hamster,
-        data.dynamo,
-        data.thunder,
-      ];
-    });
-  }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.arrProd.forEach((prod) => {
-      if (this.id === prod.id) {
-        this.store.pipe(select(selectProductionObj, prod.type)).subscribe(data => this.productionBuilding = data);
-        this.valueMulti = 100 / this.productionBuilding.production.time;
-      }
-    });
+    this.store.pipe(select(takeMulti)).subscribe(data => this.multi = data);
+    this.store.pipe(select(takeMoney)).subscribe(data => this.money = data);
+    this.store.pipe(select(selectProductionObj, this.type)).subscribe(data => this.productionBuilding = data);
+    this.valueMulti = 100 / this.productionBuilding.production.time;
   }
 
   work() {

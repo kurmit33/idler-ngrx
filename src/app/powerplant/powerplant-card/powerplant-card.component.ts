@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { PowerPlant } from '../powerplant.model';
 import { AppState } from 'src/app/reducers';
 import { takePowerPlants, selectPowerPlant } from '../powerplant.selector';
-import { BuildPowerPlant, UpgradePowerPlant, HirePowerPlant, ResearchPowerPlant } from '../powerplant.actions';
+import { BuildPowerPlant, UpgradePowerPlant, HirePowerPlant, ResearchPowerPlant, POWERPLANT_TYPES } from '../powerplant.actions';
 import { takeMulti, takeMoney, takeGreen, takeWorkes } from 'src/app/resources/resources.selectors';
 import { ChangeMoney, ChangeGreen, ChangeWorkers } from 'src/app/resources/resources.actions';
 import { delay } from 'rxjs/operators';
@@ -15,9 +15,8 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./powerplant-card.component.css']
 })
 export class PowerplantCardComponent implements OnInit {
-  @Input() id: number;
+  @Input() type: POWERPLANT_TYPES;
   powerPlant$: Observable<PowerPlant>;
-  arrPP: PowerPlant[];
   powerPlant: PowerPlant;
   multi: number;
   money: number;
@@ -26,31 +25,11 @@ export class PowerplantCardComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-    const powerpl = this.store.pipe(select(takePowerPlants)).subscribe(data => {
-      this.arrPP = [
-        data.wind,
-        data.solar,
-        data.wave,
-        data.water,
-        data.geothermal,
-        data.coal,
-        data.biogas,
-        data.oil,
-        data.nuclear,
-        data.fusion,
-      ];
-    });
-    powerpl.unsubscribe();
     this.store.pipe(select(takeMulti)).subscribe(data => this.multi = data);
     this.store.pipe(select(takeMoney)).subscribe(data => this.money = data);
     this.store.pipe(select(takeGreen)).subscribe(data => this.green = data);
     this.store.pipe(select(takeWorkes)).subscribe(data => this.workers = data);
-    this.arrPP.forEach((power) => {
-      if (this.id === power.id) {
-        this.store.pipe(select(selectPowerPlant, power.type)).subscribe(data => this.powerPlant = data);
-      }
-    });
-
+    this.store.pipe(select(selectPowerPlant, this.type)).subscribe(data => this.powerPlant = data);
   }
 
   research() {

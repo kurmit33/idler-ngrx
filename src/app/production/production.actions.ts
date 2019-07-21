@@ -106,7 +106,7 @@ export class PriceProductions implements Action {
     },
     thunder: {
       diffUpg: number,
-      diffTime: number, // dokończyć redux, optymalizacja !
+      diffTime: number,
     },
   }) { }
 }

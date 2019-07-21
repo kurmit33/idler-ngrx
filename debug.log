@@ -1,0 +1,3 @@
+[0721/110838.591:ERROR:process_info.cc(329)] VirtualQueryEx: Odmowa dostêpu. (0x5)
+[0721/110838.593:ERROR:process_info.cc(550)] ReadMemoryInfo failed
+[0721/110838.593:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Podjêto próbê uzyskania dostêpu do procesu koñcz¹cego dzia³anie. (0xc000010a)

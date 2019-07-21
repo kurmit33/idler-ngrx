@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../reducers';
+import { takeProductionObj } from './production.selectors';
+import { ProductionAction } from './production.model';
 
 @Component({
   selector: 'app-production',
@@ -6,13 +10,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./production.component.css']
 })
 export class ProductionComponent implements OnInit {
-
-  constructor() { }
+  arrProd: ProductionAction[];
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
-  }
-
-  arrayOne(num: number) {
-    return Array(num);
+    const sub = this.store.pipe(select(takeProductionObj)).subscribe(data => {
+      this.arrProd = [
+        data.cell,
+        data.bucket,
+        data.hamster,
+        data.dynamo,
+        data.thunder,
+      ];
+    });
+    sub.unsubscribe();
   }
 }

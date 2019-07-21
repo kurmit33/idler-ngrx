@@ -6,6 +6,7 @@ import { interval } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppActionTypes } from './app.actions';
 import { takeState } from './app.selectors';
+import { TimeControl } from './office/office.actions';
 
 @Injectable()
 export class AppEffects {
@@ -17,6 +18,7 @@ export class AppEffects {
     tap(() => {
       interval(5000).subscribe(() => {
         this.res$.subscribe(data => this.res = data);
+        this.store.dispatch(new TimeControl(new Date()));
         localStorage.setItem('game', JSON.stringify(this.res));
       });
     })

@@ -7,7 +7,7 @@
         <span>Time left: {{60 - workEvent.workTime | shortNumber: 0}}</span>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-toolbar color="primary" *ngIf="rwd">
+    <mat-toolbar color="primary" *ngIf="">
       <mat-toolbar-row>
         <span>{{workEvent.title}}&nbsp;</span> <span *ngIf="workEvent.id">{{workEvent.multi | shortNumber: 2}}</span>
       </mat-toolbar-row>

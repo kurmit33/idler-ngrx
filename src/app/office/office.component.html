@@ -1,3 +1,7 @@
-<p>
-  office works!
-</p>
+<mat-sidenav-container>
+  <mat-grid-list cols="20" rowHeight="750px" gutterSize="2px">
+    <mat-grid-tile [colspan]="4" [rowspan]="1" *ngFor="let offi of offices">
+      <app-office-card [type]="offi.type"></app-office-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-sidenav-container>

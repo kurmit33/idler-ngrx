@@ -1,3 +1,67 @@
-<p>
-  office-card works!
-</p>
+<mat-card class="powerplant">
+  <mat-card-header>
+    <img mat-card-avatar src="{{office.image}}">
+    <mat-card-title>{{office.name}}</mat-card-title>
+    <mat-card-subtitle>{{office.title}} {{office.maxEnergy}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="{{office.image}}">
+  <div *ngIf="office.status.research">
+    <mat-card-content class="tett">
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="4" [rowspan]="2">
+          {{office.secondResourcesName}}
+          <br>
+          {{office.secondResources}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="2">
+          Rooms<br>
+          {{office.room}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="4" [rowspan]="2">
+          Space:
+          <br>
+          {{office.space - office.secondResources}}
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1" *ngIf="autoSell"><mat-slide-toggle (change)="change()" color="warn">{{isOn}}</mat-slide-toggle></mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1" *ngIf="autoSell"><mat-slider color="warn" (valueChange)="newMinPrice()" [(ngModel)]="minPrice" tickInterval="0.01" step="0.01" min="0.1" max="0.35"></mat-slider></mat-grid-tile>
+        <mat-grid-tile [colspan]="3" [rowspan]="1" *ngIf="autoSell">{{minPrice}}</mat-grid-tile>
+        <mat-grid-tile [colspan]="12" [rowspan]="1" *ngIf="!autoSell"></mat-grid-tile>
+        <mat-grid-tile [colspan]="12" [rowspan]="1"></mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">{{office.secondResourcesName}} price</mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">Room price</mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          {{office.price.secondResources | shortNumber: 2}}<mat-icon>attach_money</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          {{office.price.room | shortNumber: 2}}<mat-icon>attach_money</mat-icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          <button mat-raised-button color="primary" disabled="{{office.status.toolButton}}">{{office.secondButton}}</button>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="6" [rowspan]="1">
+          <button mat-raised-button color="primary" disabled="{{office.status.roomButton}}">Buy Room</button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-actions>
+  </div>
+  <div *ngIf="!office.status.research">
+    <mat-card-content>
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          {{office.price.research}}
+          <mat-icon>attach_money</mat-icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions class="tett">
+      <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
+        <mat-grid-tile [colspan]="12" [rowspan]="1">
+          <button mat-raised-button color="accent" disabled="{{office.status.researchButton}}">Research</button></mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-actions>
+  </div>
+</mat-card>

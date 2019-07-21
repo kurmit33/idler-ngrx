@@ -6,6 +6,7 @@ import { Reset, HardReset, ChangeMoney, ChangeWorkers, ChangeEnergy, ChangeMulit
 import { takeMoney, takeEnergy, takeGreen, takeWorkes, takePrice, takeMulti, takeProduction, takeBuildings } from './resources.selectors';
 import { ResetPowerPlants } from '../powerplant/powerplant.actions';
 import { ResetProductions } from '../production/production.actions';
+import { takeOffice } from '../office/office.selectors';
 
 @Component({
   selector: 'app-resources',
@@ -21,6 +22,7 @@ export class ResourcesComponent implements OnInit {
   multi$: Observable<number>;
   buildings$: Observable<number>;
   production$: Observable<number>;
+  maxEnergy: number;
   selected: string;
   rwd = false;
   constructor(private store: Store<AppState>) { }
@@ -34,6 +36,9 @@ export class ResourcesComponent implements OnInit {
     this.multi$ = this.store.pipe(select(takeMulti));
     this.buildings$ = this.store.pipe(select(takeBuildings));
     this.production$ = this.store.pipe(select(takeProduction));
+    this.store.pipe(select(takeOffice)).subscribe( data => {
+      this.maxEnergy = data.accumulator.maxEnergy + data.bigAccumulator.maxEnergy;
+    });
     const sub = this.multi$.subscribe(data => this.selected = data.toString());
     sub.unsubscribe();
   }

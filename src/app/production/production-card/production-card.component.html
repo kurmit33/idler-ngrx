@@ -4,7 +4,6 @@
     <mat-card-title>{{productionBuilding.name | uppercase}}</mat-card-title>
     <mat-card-subtitle>{{productionBuilding.title}}</mat-card-subtitle>
   </mat-card-header>
-
   <div *ngIf="productionBuilding.status.research">
     <mat-card-content class="tett">
       <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
@@ -54,6 +53,7 @@
     </mat-card-actions>
   </div>
   <div *ngIf="!productionBuilding.status.research">
+    <img mat-card-image src="{{productionBuilding.image}}">
     <mat-card-content>
       <mat-grid-list cols="12" rowHeight="2em" gutterSize="1px">
         <mat-grid-tile [colspan]="12" [rowspan]="1">

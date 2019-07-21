@@ -21,7 +21,7 @@
             <mat-icon>location_city</mat-icon>
           </button>
           <button mat-menu-item disabled>
-            <span>Production: {{production$ | async | shortNumber: 2}} </span>
+            <span>Production: {{production$ | async | shortNumber: 2}}</span>
             <mat-icon>power</mat-icon>
           </button>
           <button mat-menu-item disabled>
@@ -103,7 +103,7 @@
         <span>Buildings: {{buildings$ | async | shortNumber: 2 : true}}</span>
         <mat-icon>location_city</mat-icon>
         <div class="flex-spacer"></div>
-        <span>Energy {{energy$ | async | shortNumber: 2}}</span>
+        <span>Energy {{energy$ | async | shortNumber: 2}}/{{maxEnergy | shortNumber: 2: true}}</span>
         <mat-icon>power</mat-icon>
         <div class="flex-spacer"></div>
         <span>Price {{price$ | async}}</span>

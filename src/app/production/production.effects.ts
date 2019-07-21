@@ -11,13 +11,16 @@ import { Store, select } from '@ngrx/store';
 import { ChangeEnergy, RESOURCES_ACTION_TYPES } from '../resources/resources.actions';
 import { takeProductionObj } from './production.selectors';
 import { ProductionAction } from './production.model';
-import { takeMulti, takeMoney } from '../resources/resources.selectors';
+import { takeMulti, takeMoney, takeEnergy } from '../resources/resources.selectors';
+import { takeOffice } from '../office/office.selectors';
 
 @Injectable()
 export class ProductionEffects {
   arrProd: ProductionAction[];
   multi: number;
   money: number;
+  energy: number;
+  maxEnergy: number;
   constructor(private actions$: Actions, private store: Store<AppState>) {
     this.store.pipe(select(takeProductionObj)).subscribe(data => {
       this.arrProd = [
@@ -30,10 +33,14 @@ export class ProductionEffects {
     });
     this.store.pipe(select(takeMulti)).subscribe(data => this.multi = data);
     this.store.pipe(select(takeMoney)).subscribe(data => this.money = data);
+    this.store.pipe(select(takeEnergy)).subscribe(data => this.energy = data);
+    this.store.pipe(select(takeOffice)).subscribe(data => {
+      this.maxEnergy = data.accumulator.maxEnergy + data.bigAccumulator.maxEnergy;
+    });
   }
 
   @Effect({ dispatch: false })
-  works$ = this.actions$.pipe(
+  work$ = this.actions$.pipe(
     ofType(RESOURCES_ACTION_TYPES.START_GAME),
     tap(() => {
       interval(250).subscribe(() => {
@@ -47,7 +54,13 @@ export class ProductionEffects {
         this.arrProd.forEach((prod) => {
           if (prod.status.work) {
             if (prod.time >= prod.production.time) {
-              this.store.dispatch(new ChangeEnergy(prod.production.energy));
+              let temp: number;
+              if (prod.production.energy + this.energy > this.maxEnergy) {
+                temp = this.maxEnergy - this.energy;
+              } else {
+                temp = prod.production.energy;
+              }
+              this.store.dispatch(new ChangeEnergy(temp));
               this.store.dispatch(new WorkProductions({ ind: prod.type, diff: false }));
             } else {
               switch (prod.type) {
@@ -169,8 +182,8 @@ export class ProductionEffects {
         },
       };
       this.arrProd.forEach((prod) => {
-        let upg: boolean;
-        let time: boolean;
+        let upg = true;
+        let time = true;
         if (prod.price.upgrade <= this.money && !prod.status.work) {
           upg = false;
         }

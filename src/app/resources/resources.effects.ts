@@ -5,16 +5,19 @@ import { interval } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ChangeEnergy, RESOURCES_ACTION_TYPES, ChangePrice, ChangeProduction, ChangeBuildings } from './resources.actions';
 import { AppState } from '../reducers';
-import { takeProduction } from './resources.selectors';
+import { takeProduction, takeEnergy } from './resources.selectors';
 import { POWERPLANT_ACTION_TYPES } from '../powerplant/powerplant.actions';
 import { takePowerPlants } from '../powerplant/powerplant.selector';
 import { PowerPlant } from '../powerplant/powerplant.model';
 import { EVENT_ACTION_TYPES } from '../event/event.actions';
+import { takeOffice } from '../office/office.selectors';
 
 
 @Injectable()
 export class ResourcesEffects {
   priceTime = 0;
+  energy: number;
+  maxEnergy: number;
   arrPP: PowerPlant[];
 
   constructor(private actions$: Actions, private store: Store<AppState>) {
@@ -32,6 +35,10 @@ export class ResourcesEffects {
         data.fusion,
       ];
     });
+    this.store.pipe(select(takeEnergy)).subscribe(data => this.energy = data);
+    this.store.pipe(select(takeOffice)).subscribe(data => {
+      this.maxEnergy = data.accumulator.maxEnergy + data.bigAccumulator.maxEnergy;
+    });
   }
 
   @Effect({ dispatch: false })
@@ -39,7 +46,13 @@ export class ResourcesEffects {
     ofType(RESOURCES_ACTION_TYPES.START_GAME),
     tap(() => {
       interval(250).subscribe(() => {
-        this.store.dispatch(new ChangeEnergy(this.productionPerTick()));
+        let temp: number;
+        if (this.productionPerTick() + this.energy > this.maxEnergy) {
+          temp = this.maxEnergy - this.energy;
+        } else {
+          temp = this.productionPerTick();
+        }
+        this.store.dispatch(new ChangeEnergy(temp));
       });
       interval(60000).subscribe(() => {
         this.store.dispatch(new ChangePrice(this.randomPrice()));
@@ -47,19 +60,19 @@ export class ResourcesEffects {
     })
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   production$ = this.actions$.pipe(
     ofType(POWERPLANT_ACTION_TYPES.PRODUCTION_POWERPLANT, EVENT_ACTION_TYPES.CHANGE_EVENT),
     tap(() => {
       let prod = 0;
       this.arrPP.forEach((power) => {
-          prod += power.production;
+        prod += power.production;
       });
       this.store.dispatch(new ChangeProduction(prod));
     })
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   buildings$ = this.actions$.pipe(
     ofType(POWERPLANT_ACTION_TYPES.BUILD_POWERPLANT),
     tap(() => {
